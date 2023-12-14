@@ -1,0 +1,51 @@
+{
+  "code": "SU",
+  "message": "Success.",
+  "searchList": [
+    {
+      "boardNumber": 1,
+      "title": "나의 첫 번째 공부",
+      "boardTitleFile": null,
+      "writeDatetime": "2023.11.01. 00:34:23",
+      "tagList": ["태그1", "태그2"],
+      "alarm": false,
+      "content": "<h1>오늘의 하루</h1><p><br></p><p class=\"ql-align-center\"><img src=\"https://review-us-test.s3.ap-northeast-2.amazonaws.com/upload/1701520684150\" width=\"316\" height=\"210.66667459347335\" style=\"\"></p><h1>오늘의 하루</h1><h1>오늘의 하루</h1><h1>오늘의 하루</h1><h1>오늘의 하루</h1><h1>오늘의 하루</h1><h1>오늘의 하루</h1><h1>오늘의 하루</h1><h1>오늘의 하루</h1>"
+    },
+    {
+      "boardNumber": 2,
+      "title": "나의 두 번째 공부",
+      "boardTitleFile": null,
+      "writeDatetime": "2023.11.01. 00:34:23",
+      "tagList": ["태그1", "태그2"],
+      "alarm": false,
+      "content": "<h1>오늘의 하루</h1><p><br></p><p class=\"ql-align-center\">123</p>"
+    },
+    {
+      "boardNumber": 3,
+      "title": "나의 세 번째 공부",
+      "boardTitleFile": null,
+      "writeDatetime": "2023.11.01. 00:34:23",
+      "tagList": ["태그1", "태그2"],
+      "alarm": false,
+      "content": "<h1>오늘의 하루</h1><p><br></p><p class=\"ql-align-center\"><img src=\"https://review-us-test.s3.ap-northeast-2.amazonaws.com/upload/1701520684150\" width=\"316\" height=\"210.66667459347335\" style=\"\"></p>"
+    },
+    {
+      "boardNumber": 4,
+      "title": "나의 네 번째 공부",
+      "boardTitleFile": null,
+      "writeDatetime": "2023.11.01. 00:34:23",
+      "tagList": ["태그1", "태그2"],
+      "alarm": false,
+      "content": "<h1>오늘의 하루</h1><p><br></p><p class=\"ql-align-center\"><img src=\"https://review-us-test.s3.ap-northeast-2.amazonaws.com/upload/1701520684150\" width=\"316\" height=\"210.66667459347335\" style=\"\"></p>"
+    },
+    {
+      "boardNumber": 5,
+      "title": "나의 다섯 번째 공부",
+      "boardTitleFile": null,
+      "writeDatetime": "2023.11.01. 00:34:23",
+      "tagList": ["태그1", "태그2"],
+      "alarm": false,
+      "content": "<h1>오늘의 하루</h1><p><br></p><p class=\"ql-align-center\"><img src=\"https://review-us-test.s3.ap-northeast-2.amazonaws.com/upload/1701520684150\" width=\"316\" height=\"210.66667459347335\" style=\"\"></p>"
+    }
+  ]
+}

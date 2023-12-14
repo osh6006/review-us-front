@@ -1,0 +1,85 @@
+.preview-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-container h1 {
+  font-size: 2rem; /* 원하는 크기로 설정 */
+  line-height: 1.8rem;
+  margin: 1rem 0;
+}
+
+.preview-container h2 {
+  font-size: 1.5rem; /* 원하는 크기로 설정 */
+  line-height: 1.3rem;
+  margin: 1rem 0;
+}
+
+.preview-container h3 {
+  font-size: 1.25rem; /* 원하는 크기로 설정 */
+  line-height: 1.05rem;
+  margin: 1rem 0;
+}
+
+.preview-container h4 {
+  font-size: 1.1rem; /* 원하는 크기로 설정 */
+  line-height: 9.01rem;
+  margin: 1rem 0;
+}
+
+.preview-container h5 {
+  font-size: 1rem; /* 원하는 크기로 설정 */
+  line-height: 0.8rem;
+  margin: 1rem 0;
+}
+
+.preview-container h6 {
+  font-size: 0.9rem; /* 원하는 크기로 설정 */
+  line-height: 0.7rem;
+  margin: 1rem 0;
+}
+
+.preview-container blockquote {
+  margin: 0 0 20px; /* 블록 인용문 간격 조절 */
+  padding: 10px 20px; /* 블록 인용문 안 여백 조절 */
+  border-left: 4px solid #5964e0; /* 왼쪽에 선 추가 */
+  color: #666; /* 텍스트 색상 지정 */
+  font-style: italic; /* 이탤릭체로 표시 */
+  background-color: #f0f0f0;
+}
+
+.preview-container ol {
+  list-style-type: decimal; /* 숫자 목록 스타일 */
+  margin-left: 50px; /* 목록 왼쪽 여백 조절 */
+}
+
+.preview-container ul {
+  list-style-type: disc; /* 원형 목록 스타일 */
+  margin-left: 50px; /* 목록 왼쪽 여백 조절 */
+}
+
+.preview-container li {
+  margin-bottom: 5px; /* 각 항목의 아래 여백 조절 */
+}
+
+.preview-container a {
+  color: #007bff; /* 링크 텍스트 색상 */
+  text-decoration: none; /* 링크 텍스트에 밑줄 제거 */
+  font-weight: bold; /* 링크 텍스트 굵게 표시 */
+}
+
+.preview-container a:hover {
+  text-decoration: underline; /* 링크에 마우스 호버 시 밑줄 표시 */
+}
+
+.ql-align-center {
+  margin: 0 auto;
+}
+
+.preview-container img {
+  border-radius: 10px;
+  width: 80%;
+  max-width: 800px;
+  min-width: 300px;
+  margin: 0 auto;
+}
