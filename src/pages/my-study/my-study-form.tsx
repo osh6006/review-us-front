@@ -1,4 +1,3 @@
-import React from "react";
 import Inner from "../../components/common/inner";
 
 function MyStudyForm() {
