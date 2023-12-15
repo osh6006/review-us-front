@@ -1,5 +1,8 @@
 import axios from "axios";
 
+const temp = localStorage.getItem("userInfo");
+const userInfo = temp ? JSON.parse(temp) : "";
+
 const API = axios.create({
   baseURL: "http://localhost:8080",
 });
@@ -15,13 +18,13 @@ export const publicApi = axios.create({
 export const privateApi = axios.create({
   baseURL: `http://localhost:8080`,
   headers: {
-    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    Authorization: `Bearer ${userInfo.accessToken}`,
   },
 });
 
 //리프레시토큰 요청 api
 async function postRefreshToken() {
-  const refreshToken = JSON.parse(localStorage.getItem("userInfo") || "");
+  const refreshToken = userInfo.accessToken;
   const response = publicApi
     .post("/auth/refreshToken", JSON.stringify(refreshToken))
     .then((res) => res.data);
