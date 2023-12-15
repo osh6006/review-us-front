@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import ReactQuill from "react-quill";
 
 import AWS from "aws-sdk";
@@ -9,7 +9,7 @@ const ACCESS_KEY = process.env.REACT_APP_AWS_S3_BUCKET_ACCESS_KEY_ID;
 const SECRET_ACCESS_KEY = process.env.REACT_APP_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
 
 export default function useEditor(ref: React.RefObject<ReactQuill>) {
-  const imageHandler = async () => {
+  const imageHandler = useCallback(async () => {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
@@ -56,7 +56,7 @@ export default function useEditor(ref: React.RefObject<ReactQuill>) {
         console.log(error);
       }
     });
-  };
+  }, [ref]);
 
   // 에디터 설정
   const modules = React.useMemo(
@@ -135,7 +135,7 @@ export default function useEditor(ref: React.RefObject<ReactQuill>) {
         },
       },
     }),
-    []
+    [imageHandler]
   );
 
   // 툴바에 사용되는 툴 포맷
