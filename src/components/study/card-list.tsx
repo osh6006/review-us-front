@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 
 import { useMyStudiesQuery } from "../../hooks/use-study";
-import { useFakeMyStudiesQuery } from "../../hooks/use-fake-study";
+// import { useFakeMyStudiesQuery } from "../../hooks/use-fake-study";
 
 import Card from "./card";
 import SkeletonCard from "../common/skeleton/skeleton-card";

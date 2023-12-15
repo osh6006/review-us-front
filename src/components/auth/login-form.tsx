@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAuthentication } from "../../recoil/auth-state";
-
 import { AuthType } from "../../pages/auth";
 import { signIn } from "../../apis/auth";
 
@@ -17,7 +15,6 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuthentication();
 
   const [formData, setFormData] = useState<LoginUser>({
     email: "",
@@ -42,8 +39,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
       });
       if (res.code === "SU") {
         // 로그인 성공 시 토큰 저장
-        login(res.token, res.expirationTime);
         showToastByCode(res.code, "로그인에 성공하였습니다.");
+        localStorage.setItem(
+          "userInfo",
+          JSON.stringify({
+            userId: res.memberId,
+            nickname: res.nickname,
+            accessToken: res.accessToken,
+            refreshToken: res.refreshToken,
+          })
+        );
         navigate("/");
       } else {
         showToastByCode(res.code);

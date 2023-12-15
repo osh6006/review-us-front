@@ -19,6 +19,7 @@ export const useMyStudiesQuery = () => {
     queryKey: ["MyStudiesQuery"],
     queryFn: () => getMyStudies(),
     staleTime: Infinity,
+    retry: false,
   });
 };
 

@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
-import { useRecoilValue } from "recoil";
-import { tokenState } from "../../recoil/auth-state";
-
 import clsx from "clsx";
 import { Menu, Plus, X } from "lucide-react";
 
@@ -22,7 +19,7 @@ const Navbar = () => {
     setOpen(!isOpen);
   };
 
-  const loginInfo = useRecoilValue(tokenState);
+  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "") || null;
 
   return (
     <nav className="fixed w-full bg-primary py-5 sm:py-7 text-white z-40 shadow-lg">
@@ -33,7 +30,7 @@ const Navbar = () => {
             review us
           </Link>
           <div className="flex items-center gap-x-2">
-            {loginInfo ? (
+            {userInfo ? (
               <div className="flex items-center gap-x-2 ">
                 <button
                   onClick={() => navigate("mystudy/write")}
@@ -122,7 +119,7 @@ const Navbar = () => {
               </NavLink>
             ))}
           </ul>
-          {loginInfo ? (
+          {userInfo ? (
             <div className="flex items-center gap-x-2 gap-y-5">
               <button
                 onClick={() => navigate("mystudy/write")}

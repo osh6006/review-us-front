@@ -3,8 +3,6 @@ import {
   RouterProvider,
   createBrowserRouter,
 } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { tokenState } from "../recoil/auth-state";
 import App from "../App";
 import Error from "../pages/error";
 import MyStudy from "../pages/my-study/my-study";
@@ -16,7 +14,7 @@ import UserProfile from "../pages/profile";
 import MyPage from "../pages/my-page";
 
 const Routes = () => {
-  const token = useRecoilValue(tokenState);
+  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "") || null;
 
   // Define public routes accessible to all users
   // 권한 없이 모두 접근이 가능함
@@ -75,7 +73,7 @@ const Routes = () => {
   const routesForNotAuthenticatedOnly: RouteObject[] = [
     {
       path: "/auth",
-      element: !token ? <Auth /> : <Error />,
+      element: !userInfo ? <Auth /> : <Error />,
     },
   ];
 

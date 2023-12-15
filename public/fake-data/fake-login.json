@@ -1,0 +1,6 @@
+{
+  "accessToken": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJsb2RkZDVAbnJkZGQuY2RvIiwidXNlcklkIjoxLCJpYXQiOjE3MDI1NTA2MTQsImV4cCI6MTcwMjU1MjQxNH0.YQo_BKIPo30XGo1_PYxY8Lo3k7BpbrGq9F1w1wiKs3vzyrVyWO6mlnGgxJQWV1xx",
+  "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsb2RkZDVAbnJkZGQuY2RvIiwidXNlcklkIjoxLCJpYXQiOjE3MDI1NTA2MTQsImV4cCI6MTcwMzE1NTQxNH0.oo5zmK7M0A9TO0LfeGTnd2Esg1k9QSEyV_MNaVnXfEY",
+  "memberId": 1,
+  "nickname": "닉네임"
+}

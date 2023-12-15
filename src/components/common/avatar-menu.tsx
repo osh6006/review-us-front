@@ -1,10 +1,8 @@
 import { Menu } from "@headlessui/react";
 import Avatar from "./avatar";
-import { useAuthentication } from "../../recoil/auth-state";
 import { useNavigate } from "react-router-dom";
 
 const AvatarMenu = () => {
-  const { logout } = useAuthentication();
   const nav = useNavigate();
 
   return (
@@ -47,7 +45,9 @@ const AvatarMenu = () => {
         <Menu.Item>
           {({ active }) => (
             <button
-              onClick={() => logout()}
+              onClick={() => {
+                localStorage.clear();
+              }}
               className={`${
                 active ? "bg-primary text-white" : "text-gray-900"
               } group flex w-full items-center rounded-md px-2 py-2 text-sm transition-colors`}

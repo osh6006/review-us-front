@@ -1,14 +1,10 @@
-import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-import { useRecoilValue } from "recoil";
-import { tokenState } from "../recoil/auth-state";
-
 export const ProtectedRoute = () => {
-  const token = useRecoilValue(tokenState);
+  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "") || null;
 
   // Check if the user is authenticated
-  if (!token) {
+  if (!userInfo) {
     // If not authenticated, redirect to the login page
     return <Navigate to="/auth" />;
   }

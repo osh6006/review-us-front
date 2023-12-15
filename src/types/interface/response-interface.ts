@@ -17,8 +17,10 @@ interface CommonResponse {
 }
 
 export interface LoginResponse extends CommonResponse {
-  token: string;
-  expirationTime: number;
+  memberId: number;
+  nickname: string;
+  refreshToken: string;
+  accessToken: string;
 }
 
 export interface RegisterResponse extends CommonResponse {}
