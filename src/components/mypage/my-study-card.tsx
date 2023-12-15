@@ -1,10 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-interface MyStudyCardProps {}
+// interface MyStudyCardProps {}
 
 const MyStudyCard = () => {
-  const nav = useNavigate();
+  // const nav = useNavigate();
 
   return (
     <div className="w-full p-4 border rounded-lg border-primary cursor-pointer shadow-sm">

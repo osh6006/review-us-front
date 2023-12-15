@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import Inner from "../../components/common/inner";
@@ -7,12 +7,12 @@ import StudyForm from "../../components/study/study-form";
 import Preview from "../../components/study/preview";
 
 import { MyStudyFormData } from "../../types/interface";
-import { useFakeMyStudyDetailQuery } from "../../hooks/use-fake-study";
+// import { useFakeMyStudyDetailQuery } from "../../hooks/use-fake-study";
 import { useMyStudyDetailQuery } from "../../hooks/use-study";
 import Loading from "../../components/common/loading";
 
 export default function MyStudyWrite() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const studyId = searchParams.get("id");
   const title = studyId
     ? "공부에 잘못된 내용이 있었나요?"

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 import { useForm } from "react-hook-form";
 
 import clsx from "clsx";
@@ -21,11 +21,7 @@ import {
   useMyStudyPostMutation,
 } from "../../hooks/use-study";
 import useEditor from "../../hooks/use-editor";
-import {
-  previewModalState,
-  usePreviewModal,
-} from "../../hooks/use-preview-modal";
-import { title } from "process";
+import { usePreviewModal } from "../../hooks/use-preview-modal";
 
 interface StudyFormProps {
   myStudyData: MyStudyFormData;

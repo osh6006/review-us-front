@@ -1,9 +1,8 @@
-import React from "react";
 import MyStudyCard from "./my-study-card";
 
-interface MyPageStudyListProps {
-  list: [];
-}
+// interface MyPageStudyListProps {
+//   list: [];
+// }
 
 const MyPageStudyList = () => {
   return (
