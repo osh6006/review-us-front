@@ -14,7 +14,7 @@ import UserProfile from "../pages/profile";
 import MyPage from "../pages/my-page";
 
 const Routes = () => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "") || null;
+  const userInfo = localStorage.getItem("userInfo");
 
   // Define public routes accessible to all users
   // 권한 없이 모두 접근이 가능함

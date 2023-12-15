@@ -30,7 +30,7 @@ async function postRefreshToken() {
 }
 
 privateApi.interceptors.request.use((config) => {
-  const token = localStorage.getItem("accessToken");
+  const token = "accessToken";
   config.headers.Authorization = "Bearer " + token;
   return config;
 });
@@ -74,7 +74,7 @@ privateApi.interceptors.response.use(
               error.response?.status === 422
             ) {
               localStorage.clear();
-              window.location.replace("/sign-in");
+              window.location.replace("/auth");
             } else {
               // alert(LOGIN.MESSAGE.ETC);
             }

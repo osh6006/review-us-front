@@ -19,7 +19,7 @@ const Navbar = () => {
     setOpen(!isOpen);
   };
 
-  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "") || null;
+  const userInfo = localStorage.getItem("userInfo");
 
   return (
     <nav className="fixed w-full bg-primary py-5 sm:py-7 text-white z-40 shadow-lg">
