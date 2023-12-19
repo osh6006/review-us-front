@@ -63,8 +63,6 @@ const StudyForm: React.FC<StudyFormProps> = ({
   const patchMutation = useMyStudyPatchMutation();
 
   const onSubmit = async (data: MyStudyFormData) => {
-    console.log(data);
-
     if (studyId) {
       patchMutation.mutate({ data, boardNumber: studyId });
     } else {

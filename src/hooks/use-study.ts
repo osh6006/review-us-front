@@ -83,7 +83,7 @@ export const useMyStudyPatchMutation = () => {
     },
 
     onSuccess(data, variables, context) {
-      console.log(data, variables, context);
+      // console.log(data, variables, context);
       queryClient.invalidateQueries({
         queryKey: ["MyStudyQuery", "MyStudyDetailQuery"],
       });

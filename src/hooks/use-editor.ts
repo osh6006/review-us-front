@@ -41,7 +41,6 @@ export default function useEditor(ref: React.RefObject<ReactQuill>) {
         //이미지 업로드 후
         //곧바로 업로드 된 이미지 url을 가져오기
         const IMG_URL = await upload.promise().then((res) => res.Location);
-        console.log(IMG_URL);
 
         //useRef를 사용해 에디터에 접근한 후
         //에디터의 현재 커서 위치에 이미지 삽입
@@ -53,7 +52,7 @@ export default function useEditor(ref: React.RefObject<ReactQuill>) {
           editor.insertEmbed(range?.index!, "image", IMG_URL);
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     });
   }, [ref]);

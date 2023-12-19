@@ -2,21 +2,22 @@ import axios from "axios";
 
 const temp = localStorage.getItem("userInfo");
 const userInfo = temp ? JSON.parse(temp) : "";
+const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
 const API = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: BASE_URL,
 });
 
 export default API;
 
 //토큰이 불필요한 경우
 export const publicApi = axios.create({
-  baseURL: `http://localhost:8080`,
+  baseURL: BASE_URL,
 });
 
 //토큰을 함께 보내는 instance
 export const privateApi = axios.create({
-  baseURL: `http://localhost:8080`,
+  baseURL: BASE_URL,
   headers: {
     Authorization: `Bearer ${userInfo.accessToken}`,
   },
