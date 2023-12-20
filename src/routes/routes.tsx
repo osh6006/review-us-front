@@ -16,8 +16,6 @@ import MyPage from "../pages/my-page";
 const Routes = () => {
   const userInfo = localStorage.getItem("userInfo");
 
-  console.log(userInfo);
-
   // Define public routes accessible to all users
   // 권한 없이 모두 접근이 가능함
   const routesForPublic: RouteObject[] = [];

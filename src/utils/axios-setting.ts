@@ -13,7 +13,9 @@ export default API;
 //토큰이 불필요한 경우
 export const publicApi = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 //토큰을 함께 보내는 instance
@@ -21,6 +23,7 @@ export const privateApi = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
   headers: {
+    "Content-Type": "application/json",
     Authorization: `Bearer ${userInfo.accessToken}`,
   },
 });
