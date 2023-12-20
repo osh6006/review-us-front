@@ -2,7 +2,10 @@ import axios from "axios";
 
 const temp = localStorage.getItem("userInfo");
 const userInfo = temp ? JSON.parse(temp) : "";
-const BASE_URL = process.env.REACT_APP_SERVER_URL;
+const BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8080/"
+    : process.env.REACT_APP_SERVER_URL;
 
 const API = axios.create({
   baseURL: BASE_URL,
