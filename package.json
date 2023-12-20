@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
+  "proxy": "https://port-0-reviewus-backend-hkty2alqam2l9c.sel4.cloudtype.app",
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@tanstack/react-query": "^5.8.4",
