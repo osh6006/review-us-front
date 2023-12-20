@@ -21,7 +21,6 @@ export const publicApi = axios.create({
 //토큰을 함께 보내는 instance
 export const privateApi = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${userInfo.accessToken}`,
@@ -39,7 +38,7 @@ async function postRefreshToken() {
 }
 
 privateApi.interceptors.request.use((config) => {
-  const token = "accessToken";
+  const token = userInfo?.accessToken;
   config.headers.Authorization = "Bearer " + token;
   return config;
 });
@@ -68,7 +67,7 @@ privateApi.interceptors.response.use(
               JSON.stringify({
                 userId: res.memberId,
                 nickname: res.nickname,
-                accessToken: res.accessToken,
+                accessToken: newAccessToken,
                 refreshToken: res.refreshToken,
               })
             );

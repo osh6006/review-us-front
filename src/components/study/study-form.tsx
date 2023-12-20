@@ -108,7 +108,7 @@ const StudyForm: React.FC<StudyFormProps> = ({
         >
           <TagsInput
             value={myStudyData.tagList}
-            placeHolder="태그를 입력하세요"
+            placeHolder="태그 명 + 엔터"
             {...(register("tagList"), {})}
             onChange={(tags) => {
               setValue("tagList", tags);
