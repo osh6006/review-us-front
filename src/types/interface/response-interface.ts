@@ -41,6 +41,10 @@ export interface MyStudyGetResponse extends CommonResponse {
   userBoardList: MyStudy[];
 }
 
+export interface MyStudySearchResponse extends CommonResponse {
+  searchList: MyStudy[];
+}
+
 export interface MyStudyDetailGetResponse extends CommonResponse, MyStudy {
   writeremail: string;
 }

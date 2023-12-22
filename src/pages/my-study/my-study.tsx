@@ -1,17 +1,18 @@
 import { useState } from "react";
-
 import { Grid2X2, LayoutList } from "lucide-react";
 
 import Inner from "../../components/common/inner";
 import Title from "../../components/common/title";
 import CardList from "../../components/study/card-list";
 import SearchCardList from "../../components/study/search-list";
+import useQueryDebounce from "../../hooks/use-debounce";
 
 export default function MyStudy() {
   const today = new Date();
   const [cardType, setCardType] = useState<"list" | "card">("card");
 
   const [searchValue, setSearchValue] = useState("");
+  const debouncedSearchInput = useQueryDebounce(searchValue, 200);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
@@ -64,10 +65,10 @@ export default function MyStudy() {
           </div>
         </div>
       </section>
-      {searchValue ? (
-        <SearchCardList type={cardType} searchValue={searchValue} />
+      {debouncedSearchInput ? (
+        <SearchCardList type={cardType} searchValue={debouncedSearchInput} />
       ) : (
-        <CardList type={cardType} searchValue={searchValue} />
+        <CardList type={cardType} />
       )}
     </Inner>
   );

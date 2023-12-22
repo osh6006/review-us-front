@@ -1,9 +1,11 @@
 import clsx from "clsx";
-import { useNavigate } from "react-router-dom";
 import { useMyStudiesSearchQuery } from "../../hooks/use-study";
 
 import Card from "./card";
 import SkeletonCard from "../common/skeleton/skeleton-card";
+import { useEffect, useState } from "react";
+import { getMyStudiesBySearch } from "../../apis/study";
+import { MyStudySearchResponse } from "../../types/interface";
 
 interface CardListProps {
   type: "list" | "card";
@@ -11,14 +13,17 @@ interface CardListProps {
 }
 
 const SearchCardList: React.FC<CardListProps> = ({ type, searchValue }) => {
-  const nav = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [data, setData] = useState<MyStudySearchResponse | null>(null);
 
-  const {
-    data: myStuidies,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useMyStudiesSearchQuery(searchValue);
+  useEffect(() => {
+    setIsLoading(true);
+    getMyStudiesBySearch(searchValue)
+      .then((res) => setData(res))
+      .catch((error) => setIsError(true))
+      .finally(() => setIsLoading(false));
+  }, [searchValue]);
 
   if (isLoading) {
     return (
@@ -59,42 +64,36 @@ const SearchCardList: React.FC<CardListProps> = ({ type, searchValue }) => {
 
   return (
     <section>
-      {isSuccess && myStuidies?.userBoardList.length <= 0 && (
-        <div
-          className="w-full min-h-[400px] flex flex-col px-3 items-center justify-center gap-y-4 
+      {data && data?.searchList?.length <= 0 ? (
+        <>
+          <div
+            className="w-full min-h-[400px] flex flex-col px-3 items-center justify-center gap-y-4
           sm:min-h-[500px] sm:gap-8
           "
-        >
-          <h2 className=" text-md  text-neutral sm:text-xl ">
-            검색결과가 없습니다.
-          </h2>
-          <button
-            className="btn btn-wide btn-primary"
-            onClick={() => nav("/mystudy/write")}
           >
-            시작하기
-          </button>
-        </div>
-      )}
-      {isSuccess && (
+            <h2 className=" text-md  text-neutral sm:text-xl ">
+              검색결과가 없습니다.
+            </h2>
+          </div>
+        </>
+      ) : (
         <ul
           className={clsx(
             `px-4 my-4`,
             type === "card"
               ? `grid gap-2 grid-cols-1 justify-items-center
-        sm:grid-cols-2 sm:px-0 sm:my-8 sm:justify-items-start sm:gap-3
-        md:grid-cols-3
-        xl:grid-cols-4 xl:gap-4
-        `
+      sm:grid-cols-2 sm:px-0 sm:my-8 sm:justify-items-start sm:gap-3
+      md:grid-cols-3
+      xl:grid-cols-4 xl:gap-4
+      `
               : `grid gap-y-2 grid-cols-1 justify-items-center
-          lg:grid-cols-2 sm:px-0 sm:my-8 sm:gap-2 sm:justify-items-start
-          `
+        lg:grid-cols-2 sm:px-0 sm:my-8 sm:gap-2 sm:justify-items-start
+        `
           )}
         >
-          {myStuidies &&
-            myStuidies.userBoardList.map((study) => {
-              return <Card key={study.boardNumber} data={study} type={type} />;
-            })}
+          {data?.searchList.map((study) => {
+            return <Card key={study.boardNumber} data={study} type={type} />;
+          })}
         </ul>
       )}
     </section>

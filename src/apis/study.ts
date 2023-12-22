@@ -7,7 +7,7 @@ export const getMyStudies = async (option?: string) => {
 
 export const getMyStudiesBySearch = async (searchValue: string) => {
   return await privateApi
-    .get(`search-list/${searchValue}`)
+    .get(`/mystudy/search-list/${searchValue}`)
     .then((res) => res.data);
 };
 

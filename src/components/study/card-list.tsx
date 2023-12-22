@@ -9,10 +9,9 @@ import SkeletonCard from "../common/skeleton/skeleton-card";
 
 interface CardListProps {
   type: "list" | "card";
-  searchValue: string;
 }
 
-const CardList: React.FC<CardListProps> = ({ type, searchValue }) => {
+const CardList: React.FC<CardListProps> = ({ type }) => {
   const nav = useNavigate();
 
   const {

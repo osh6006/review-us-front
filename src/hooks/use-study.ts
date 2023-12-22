@@ -10,6 +10,7 @@ import {
   MyStudyFormData,
   MyStudyDetailGetResponse,
   MyStudyGetResponse,
+  MyStudySearchResponse,
 } from "../types/interface";
 import { showToastByCode } from "../utils/response";
 import { AxiosError } from "axios";
@@ -25,11 +26,10 @@ export const useMyStudiesQuery = () => {
 };
 
 export const useMyStudiesSearchQuery = (searchValue: string) => {
-  return useQuery<MyStudyGetResponse, AxiosError>({
+  return useQuery<MyStudySearchResponse, AxiosError>({
     queryKey: ["MyStudiesSearchQuery"],
     queryFn: () => getMyStudiesBySearch(searchValue),
     enabled: !!searchValue,
-    staleTime: 0,
   });
 };
 
