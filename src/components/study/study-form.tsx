@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 
 import clsx from "clsx";
@@ -22,6 +22,7 @@ import {
 } from "../../hooks/use-study";
 import useEditor from "../../hooks/use-editor";
 import { usePreviewModal } from "../../hooks/use-preview-modal";
+import { title } from "process";
 
 interface StudyFormProps {
   myStudyData: MyStudyFormData;
@@ -90,8 +91,10 @@ const StudyForm: React.FC<StudyFormProps> = ({
                 value: 3,
                 message: "최소 3글자 이상 입력해야 합니다.",
               },
-              onChange(event) {
-                setMyStudyData({ ...myStudyData, title: watch("title") });
+              onChange: async (event) => {
+                setTimeout(() => {
+                  setMyStudyData({ ...myStudyData, title: event.target.value });
+                }, 100);
               },
             })}
           />
