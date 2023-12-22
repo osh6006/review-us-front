@@ -1,6 +1,7 @@
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 import { deleteMyStudy } from "../apis/study";
 import { showToastByCode } from "../utils/response";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface DeleteModalState {
   isOpen: boolean;
@@ -20,6 +21,7 @@ export const deleteModalState = atom<DeleteModalState>({
 export const useDeleteModal = () => {
   const deleteState = useRecoilValue(deleteModalState);
   const setDeleteState = useSetRecoilState(deleteModalState);
+  const queryClient = useQueryClient();
 
   const onOpen = (boardNumber: number | null) => {
     setDeleteState({ isOpen: true, boardNumber, isDelete: false });
@@ -30,6 +32,7 @@ export const useDeleteModal = () => {
 
   const onSuccess = () => {
     setDeleteState({ boardNumber: null, isDelete: true, isOpen: false });
+    queryClient.invalidateQueries({ queryKey: ["MyStudiesQuery"] });
   };
 
   const onFail = () => {
@@ -38,11 +41,12 @@ export const useDeleteModal = () => {
 
   const onDelete = async () => {
     const res = await deleteMyStudy(deleteState.boardNumber!);
-    showToastByCode(res.response?.data?.code);
-    if (res.response.data.code === "SU") {
+    if (res.code === "SU") {
       onSuccess();
+      showToastByCode(res.code, "삭제에 성공하였습니다.");
     } else {
       onFail();
+      showToastByCode(res.code);
     }
   };
 

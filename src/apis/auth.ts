@@ -23,5 +23,3 @@ export async function signUp(data: RegisterUser) {
       return resData;
     });
 }
-
-export async function refreshAccessToken() {}

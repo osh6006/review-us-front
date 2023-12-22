@@ -43,7 +43,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
         localStorage.setItem(
           "userInfo",
           JSON.stringify({
-            userId: res.memberId,
+            userId: res.userId,
             nickname: res.nickname,
             accessToken: res.accessToken,
             refreshToken: res.refreshToken,

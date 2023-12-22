@@ -55,14 +55,17 @@ export const useMyStudyPostMutation = () => {
 
     onSuccess(data, variables, context) {
       queryClient.invalidateQueries({
-        queryKey: ["MyStudyQuery", "MyStudyDetailQuery"],
+        queryKey: ["MyStudiesQuery"],
       });
       showToastByCode("SU", "게시글을 작성하였습니다.");
-      nav(-1);
+      nav("/mystudy", { replace: false });
     },
 
     onError(error: any, variables, context) {
-      showToastByCode(error.response.data.code);
+      showToastByCode(
+        error.response.data.code,
+        "게시글 작성에 실패하였습니다."
+      );
     },
   });
 };
@@ -85,7 +88,7 @@ export const useMyStudyPatchMutation = () => {
     onSuccess(data, variables, context) {
       // console.log(data, variables, context);
       queryClient.invalidateQueries({
-        queryKey: ["MyStudyQuery", "MyStudyDetailQuery"],
+        queryKey: ["MyStudiesQuery"],
       });
       showToastByCode("SU", "게시글을 수정하였습니다.");
       nav(-1);

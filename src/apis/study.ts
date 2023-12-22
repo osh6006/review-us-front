@@ -12,7 +12,6 @@ export const getMyStudyDetail = async (boardNumber: number) => {
 };
 
 export const postMyStudy = async (data: MyStudyFormData) => {
-  console.log(data);
   return await privateApi
     .post("/mystudy/create", JSON.stringify(data))
     .then((res) => {

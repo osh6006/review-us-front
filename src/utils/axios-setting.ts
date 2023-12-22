@@ -1,17 +1,9 @@
 import axios from "axios";
 
-const temp = localStorage.getItem("userInfo");
-const userInfo = temp ? JSON.parse(temp) : "";
 const BASE_URL =
   process.env.NODE_ENV === "development"
-    ? "http://localhost:8080/"
+    ? "https://port-0-reviewus-backend-hkty2alqam2l9c.sel4.cloudtype.app"
     : process.env.REACT_APP_SERVER_URL;
-
-const API = axios.create({
-  baseURL: BASE_URL,
-});
-
-export default API;
 
 //토큰이 불필요한 경우
 export const publicApi = axios.create({
@@ -26,71 +18,64 @@ export const privateApi = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${userInfo.accessToken}`,
+    withCredentials: true,
   },
 });
 
 //리프레시토큰 요청 api
 async function postRefreshToken() {
-  const refreshToken = userInfo.accessToken;
+  const userInfo = localStorage.getItem("userInfo") || "";
+  const refreshToken = JSON.parse(userInfo).refreshToken;
   const response = publicApi
-    .post("/auth/refreshToken", JSON.stringify(refreshToken))
+    .post(
+      "/auth/refreshToken",
+      JSON.stringify({
+        refreshToken,
+      })
+    )
     .then((res) => res.data);
 
   return response;
 }
 
-privateApi.interceptors.request.use((config) => {
-  const token = userInfo?.accessToken;
-  config.headers.Authorization = "Bearer " + token;
+privateApi.interceptors.request.use(async (config) => {
+  const userInfo = localStorage.getItem("userInfo") || "";
+  const access_token = JSON.parse(userInfo).accessToken;
+  config.headers.Authorization = "Bearer " + access_token;
   return config;
 });
 
 //리프레시 토큰 구현
 privateApi.interceptors.response.use(
-  (response) => {
-    return response;
+  (res) => {
+    return res;
   },
-
   async (error) => {
     const {
       config,
+      response,
       response: { status },
     } = error;
 
-    if (status === 401) {
-      if (error.response.data.code === "AF") {
-        const originRequest = config;
-        try {
-          const res = await postRefreshToken();
-          if (res.status === 201) {
-            const newAccessToken = res.data.token;
-            localStorage.setItem(
-              "userInfo",
-              JSON.stringify({
-                userId: res.memberId,
-                nickname: res.nickname,
-                accessToken: newAccessToken,
-                refreshToken: res.refreshToken,
-              })
-            );
-            axios.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
-            originRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-            return axios(originRequest);
-          }
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            if (
-              error.response?.status === 404 ||
-              error.response?.status === 422
-            ) {
-              localStorage.clear();
-              window.location.replace("/auth");
-            } else {
-              // alert(LOGIN.MESSAGE.ETC);
-            }
-          }
-        }
+    if (config && response && status === 500) {
+      config._retry = true;
+      const refreshTokenInfo = await postRefreshToken();
+      if (refreshTokenInfo.code === "SU") {
+        localStorage.setItem(
+          "userInfo",
+          JSON.stringify({
+            userId: refreshTokenInfo.userId,
+            nickname: refreshTokenInfo.nickname,
+            accessToken: refreshTokenInfo.accessToken,
+            refreshToken: refreshTokenInfo.refreshToken,
+          })
+        );
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + refreshTokenInfo.accessToken;
+        return privateApi(config);
+      } else {
+        localStorage.clear();
+        window.location.reload();
       }
     }
     return Promise.reject(error);

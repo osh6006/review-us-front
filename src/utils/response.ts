@@ -10,13 +10,13 @@ export function showToastByCode(
 ) {
   switch (code) {
     case "VF":
-      toast.error("아이디와 비밀번호가 일치하지 않습니다.", {
+      toast.error(msg || "아이디와 비밀번호가 일치하지 않습니다.", {
         position: "top-center",
         autoClose: delay || defaultDelay,
       });
       break;
     case "SF":
-      toast.error("아이디와 비밀번호가 일치하지 않습니다.", {
+      toast.error(msg || "아이디와 비밀번호가 일치하지 않습니다.", {
         position: "top-center",
         autoClose: delay || defaultDelay,
       });
@@ -72,5 +72,10 @@ export function showToastByCode(
         autoClose: delay || defaultDelay,
       });
       break;
+    default:
+      toast.error(msg || "가입하지 않았거나 비밀번호를 입력하지 않았습니다.", {
+        position: "top-center",
+        autoClose: delay || defaultDelay,
+      });
   }
 }

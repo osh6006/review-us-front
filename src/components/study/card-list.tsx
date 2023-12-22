@@ -67,7 +67,7 @@ const CardList: React.FC<CardListProps> = ({ type }) => {
 
   return (
     <section>
-      {isSuccess && myStuidies?.searchList.length <= 0 && (
+      {isSuccess && myStuidies?.userBoardList.length <= 0 && (
         <div
           className="w-full min-h-[400px] flex flex-col px-3 items-center justify-center gap-y-4 
           sm:min-h-[500px] sm:gap-8
@@ -100,7 +100,7 @@ const CardList: React.FC<CardListProps> = ({ type }) => {
           )}
         >
           {myStuidies &&
-            myStuidies.searchList.map((study) => {
+            myStuidies.userBoardList.map((study) => {
               return <Card key={study.boardNumber} data={study} type={type} />;
             })}
         </ul>

@@ -24,7 +24,7 @@ export default function MyStudy() {
         >
           <input
             type="text"
-            placeholder="제목으로 검색"
+            placeholder="제목 or 내용으로 검색"
             className=" input input-bordered input-primary w-full max-w-sm rounded-full"
           />
           <div className="flex items-center gap-x-4">

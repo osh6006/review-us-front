@@ -17,7 +17,7 @@ interface CommonResponse {
 }
 
 export interface LoginResponse extends CommonResponse {
-  memberId: number;
+  userId: number;
   nickname: string;
   refreshToken: string;
   accessToken: string;
@@ -38,7 +38,7 @@ export interface MyStudy {
 }
 
 export interface MyStudyGetResponse extends CommonResponse {
-  searchList: MyStudy[];
+  userBoardList: MyStudy[];
 }
 
 export interface MyStudyDetailGetResponse extends CommonResponse, MyStudy {
