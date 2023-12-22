@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getMyStudies,
+  getMyStudiesBySearch,
   getMyStudyDetail,
   patchMyStudy,
   postMyStudy,
@@ -20,6 +21,15 @@ export const useMyStudiesQuery = () => {
     queryFn: () => getMyStudies(),
     staleTime: Infinity,
     retry: false,
+  });
+};
+
+export const useMyStudiesSearchQuery = (searchValue: string) => {
+  return useQuery<MyStudyGetResponse, AxiosError>({
+    queryKey: ["MyStudiesSearchQuery"],
+    queryFn: () => getMyStudiesBySearch(searchValue),
+    enabled: !!searchValue,
+    staleTime: 0,
   });
 };
 

@@ -5,10 +5,16 @@ import { Grid2X2, LayoutList } from "lucide-react";
 import Inner from "../../components/common/inner";
 import Title from "../../components/common/title";
 import CardList from "../../components/study/card-list";
+import SearchCardList from "../../components/study/search-list";
 
 export default function MyStudy() {
   const today = new Date();
   const [cardType, setCardType] = useState<"list" | "card">("card");
+
+  const [searchValue, setSearchValue] = useState("");
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
 
   return (
     <Inner>
@@ -24,8 +30,10 @@ export default function MyStudy() {
         >
           <input
             type="text"
+            value={searchValue}
             placeholder="제목 or 내용으로 검색"
             className=" input input-bordered input-primary w-full max-w-sm rounded-full"
+            onChange={handleChange}
           />
           <div className="flex items-center gap-x-4">
             <select className="select-primary bg-transparent rounded-md px-3 py-1 ">
@@ -56,7 +64,11 @@ export default function MyStudy() {
           </div>
         </div>
       </section>
-      <CardList type={cardType} />
+      {searchValue ? (
+        <SearchCardList type={cardType} searchValue={searchValue} />
+      ) : (
+        <CardList type={cardType} searchValue={searchValue} />
+      )}
     </Inner>
   );
 }

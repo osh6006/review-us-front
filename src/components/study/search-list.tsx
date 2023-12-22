@@ -1,8 +1,6 @@
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
-
-import { useMyStudiesQuery } from "../../hooks/use-study";
-// import { useFakeMyStudiesQuery } from "../../hooks/use-fake-study";
+import { useMyStudiesSearchQuery } from "../../hooks/use-study";
 
 import Card from "./card";
 import SkeletonCard from "../common/skeleton/skeleton-card";
@@ -12,7 +10,7 @@ interface CardListProps {
   searchValue: string;
 }
 
-const CardList: React.FC<CardListProps> = ({ type, searchValue }) => {
+const SearchCardList: React.FC<CardListProps> = ({ type, searchValue }) => {
   const nav = useNavigate();
 
   const {
@@ -20,7 +18,7 @@ const CardList: React.FC<CardListProps> = ({ type, searchValue }) => {
     isLoading,
     isError,
     isSuccess,
-  } = useMyStudiesQuery();
+  } = useMyStudiesSearchQuery(searchValue);
 
   if (isLoading) {
     return (
@@ -68,7 +66,7 @@ const CardList: React.FC<CardListProps> = ({ type, searchValue }) => {
           "
         >
           <h2 className=" text-md  text-neutral sm:text-xl ">
-            아직 복습을 시작하지 않았어요 시작해 볼까요?
+            검색결과가 없습니다.
           </h2>
           <button
             className="btn btn-wide btn-primary"
@@ -103,4 +101,4 @@ const CardList: React.FC<CardListProps> = ({ type, searchValue }) => {
   );
 };
 
-export default CardList;
+export default SearchCardList;

@@ -5,6 +5,12 @@ export const getMyStudies = async (option?: string) => {
   return await privateApi.get("/mystudy").then((res) => res.data);
 };
 
+export const getMyStudiesBySearch = async (searchValue: string) => {
+  return await privateApi
+    .get(`search-list/${searchValue}`)
+    .then((res) => res.data);
+};
+
 export const getMyStudyDetail = async (boardNumber: number) => {
   return await privateApi.get(`/mystudy/${boardNumber}`).then((res) => {
     return res.data;
