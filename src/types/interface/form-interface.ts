@@ -12,3 +12,8 @@ export interface MyStudyFormData {
   tagList: string[];
   alarm: boolean;
 }
+
+export interface MyProfileFormData {
+  nickname: string;
+  password: string;
+}

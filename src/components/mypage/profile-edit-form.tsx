@@ -1,9 +1,7 @@
 import { useForm } from "react-hook-form";
 
 const ProfileEditForm = () => {
-  const { register, handleSubmit } = useForm({
-    // defaultValues(payload) {},
-  });
+  const { register, handleSubmit } = useForm({});
 
   return <div className=""></div>;
 };

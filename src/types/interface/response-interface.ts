@@ -48,3 +48,9 @@ export interface MyStudySearchResponse extends CommonResponse {
 export interface MyStudyDetailGetResponse extends CommonResponse, MyStudy {
   writeremail: string;
 }
+
+export interface ProfileUserInfoResponse extends CommonResponse {
+  email: string;
+  nickname: string;
+  profileImage: string | null;
+}

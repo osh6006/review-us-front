@@ -11,7 +11,7 @@ const AvatarMenu = () => {
         <Avatar
           isIndicator
           indicatorNum={99}
-          className="cursor-pointer hover:border-2 duration-100"
+          className="max-w-[40px] cursor-pointer border-2 border-transparent hover:border-white hover:border-2 duration-100"
         />
       </Menu.Button>
       <Menu.Items className="absolute p-2 right-0 mt-2 w-28 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">

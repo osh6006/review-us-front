@@ -5,7 +5,7 @@ interface AvatarProps {
   className?: string;
   indicatorNum?: number;
   isIndicator?: boolean;
-  imgUrl?: string;
+  imgUrl?: string | null;
 }
 
 const Avatar: React.FC<AvatarProps> = ({
@@ -32,13 +32,8 @@ const Avatar: React.FC<AvatarProps> = ({
           />
         </div>
       ) : (
-        <div
-          className={clsx(
-            "bg-neutral text-neutral-content rounded-full w-10 ",
-            className
-          )}
-        >
-          <span className="text-xs">MX</span>
+        <div className={clsx("rounded-full", className)}>
+          <img alt="avatar" src={"/images/no-profile.png"} />
         </div>
       )}
     </div>

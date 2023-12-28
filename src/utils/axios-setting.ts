@@ -1,4 +1,5 @@
 import axios from "axios";
+import { error } from "console";
 
 const BASE_URL =
   process.env.NODE_ENV === "development"
@@ -33,7 +34,8 @@ async function postRefreshToken() {
         refreshToken,
       })
     )
-    .then((res) => res.data);
+    .then((res) => res.data)
+    .catch((error) => error);
 
   return response;
 }
@@ -60,6 +62,8 @@ privateApi.interceptors.response.use(
     if (config && response && status === 500) {
       config._retry = true;
       const refreshTokenInfo = await postRefreshToken();
+      console.log(refreshTokenInfo);
+
       if (refreshTokenInfo.code === "SU") {
         localStorage.setItem(
           "userInfo",
