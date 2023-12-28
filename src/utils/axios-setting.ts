@@ -59,29 +59,27 @@ privateApi.interceptors.response.use(
       response: { status },
     } = error;
 
-    if (config && response && status === 500) {
-      config._retry = true;
-      const refreshTokenInfo = await postRefreshToken();
-      console.log(refreshTokenInfo);
+    // if (config && response && status === 500) {
+    //   config._retry = true;
+    //   const refreshTokenInfo = await postRefreshToken();
 
-      if (refreshTokenInfo.code === "SU") {
-        localStorage.setItem(
-          "userInfo",
-          JSON.stringify({
-            userId: refreshTokenInfo.userId,
-            nickname: refreshTokenInfo.nickname,
-            accessToken: refreshTokenInfo.accessToken,
-            refreshToken: refreshTokenInfo.refreshToken,
-          })
-        );
-        axios.defaults.headers.common["Authorization"] =
-          "Bearer " + refreshTokenInfo.accessToken;
-        return privateApi(config);
-      } else {
-        localStorage.clear();
-        window.location.reload();
-      }
-    }
+    //   if (refreshTokenInfo.code === "SU") {
+    //     localStorage.setItem(
+    //       "userInfo",
+    //       JSON.stringify({
+    //         userId: refreshTokenInfo.userId,
+    //         nickname: refreshTokenInfo.nickname,
+    //         accessToken: refreshTokenInfo.accessToken,
+    //         refreshToken: refreshTokenInfo.refreshToken,
+    //       })
+    //     );
+    //     axios.defaults.headers.common["Authorization"] = "Bearer " + refreshTokenInfo.accessToken;
+    //     return privateApi(config);
+    //   } else {
+    //     localStorage.clear();
+    //     window.location.reload();
+    //   }
+    // }
     return Promise.reject(error);
   }
 );

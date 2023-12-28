@@ -8,12 +8,7 @@ interface AvatarProps {
   imgUrl?: string | null;
 }
 
-const Avatar: React.FC<AvatarProps> = ({
-  isIndicator,
-  indicatorNum,
-  className,
-  imgUrl,
-}) => {
+const Avatar: React.FC<AvatarProps> = ({ isIndicator, indicatorNum, className, imgUrl }) => {
   return (
     <div className="avatar indicator placeholder">
       {isIndicator && (
@@ -24,12 +19,7 @@ const Avatar: React.FC<AvatarProps> = ({
       )}
       {imgUrl ? (
         <div className={clsx("rounded-full", className)}>
-          <img
-            alt="avatar"
-            src={
-              "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-            }
-          />
+          <img alt="avatar" src={imgUrl} />
         </div>
       ) : (
         <div className={clsx("rounded-full", className)}>

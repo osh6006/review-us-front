@@ -3,11 +3,7 @@ import { ResponseCode } from "../types/interface/response-interface";
 
 const defaultDelay = 1500;
 
-export function showToastByCode(
-  code: ResponseCode,
-  msg?: string,
-  delay?: number
-) {
+export function showToastByCode(code: ResponseCode, msg?: string, delay?: number) {
   switch (code) {
     case "VF":
       toast.error(msg || "아이디와 비밀번호가 일치하지 않습니다.", {

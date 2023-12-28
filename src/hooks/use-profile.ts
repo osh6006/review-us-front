@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useRef } from "react";
+import { ChangeEvent, useCallback, useRef, useState } from "react";
 import { AxiosError } from "axios";
 import AWS from "aws-sdk";
 
@@ -34,10 +34,7 @@ export const useMyStudyPostMutation = () => {
     },
 
     onError(error: any, variables, context) {
-      showToastByCode(
-        error.response.data.code,
-        "이미지 수정에 실패하였습니다."
-      );
+      showToastByCode(error.response.data.code, "이미지 수정에 실패하였습니다.");
     },
   });
 };
@@ -47,19 +44,22 @@ const REGION = process.env.REACT_APP_AWS_S3_BUCKET_REGION;
 const ACCESS_KEY = process.env.REACT_APP_AWS_S3_BUCKET_ACCESS_KEY_ID;
 const SECRET_ACCESS_KEY = process.env.REACT_APP_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
 
-export const useProfileImage = async () => {
-  const imageHandler = useCallback(async () => {
-    const input = document.createElement("input");
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
-    input.click();
-    input.addEventListener("change", async () => {
-      //이미지를 담아 전송할 file을 만든다
-      const file = input.files?.[0];
+export const useProfileImageUploader = () => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [image, setImage] = useState<null | string>(null);
 
+  const handleButtonClick = () => {
+    // 파일 업로드 버튼을 클릭합니다.
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
       try {
-        //업로드할 파일의 이름으로 Date 사용
         const name = Date.now();
+        const file = e.target.files[0];
 
         //생성한 s3 관련 설정들
         AWS.config.update({
@@ -80,26 +80,22 @@ export const useProfileImage = async () => {
         //이미지 업로드 후
         //곧바로 업로드 된 이미지 url을 가져오기
         const IMG_URL = await upload.promise().then((res) => res.Location);
+        setImage(IMG_URL);
+        const res = await putProfileImage(IMG_URL);
+        console.log(res);
 
-        return IMG_URL;
+        // 이미지 서버에 저장
       } catch (error) {
-        // console.log(error);
+        showToastByCode("AF", "이미지 업로드에 실패하였습니다.");
       }
-    });
-  }, []);
-
-  return imageHandler;
-};
-
-export const useProfileImageUploader = () => {
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      console.log(file);
     }
   };
 
   return {
     handleFileChange,
+    image,
+    setImage,
+    handleButtonClick,
+    inputRef,
   };
 };
