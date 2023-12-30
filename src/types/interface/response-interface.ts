@@ -9,7 +9,8 @@ export type ResponseCode =
   | "SF"
   | "AF"
   | "NP"
-  | "NE";
+  | "NE"
+  | "PF";
 
 interface CommonResponse {
   code: ResponseCode;

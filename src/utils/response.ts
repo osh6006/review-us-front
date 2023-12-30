@@ -3,7 +3,11 @@ import { ResponseCode } from "../types/interface/response-interface";
 
 const defaultDelay = 1500;
 
-export function showToastByCode(code: ResponseCode, msg?: string, delay?: number) {
+export function showToastByCode(
+  code: ResponseCode,
+  msg?: string,
+  delay?: number
+) {
   switch (code) {
     case "VF":
       toast.error(msg || "아이디와 비밀번호가 일치하지 않습니다.", {
@@ -58,6 +62,12 @@ export function showToastByCode(code: ResponseCode, msg?: string, delay?: number
       break;
     case "NE":
       toast.error("네트워크 에러가 발생했습니다.", {
+        position: "top-center",
+        autoClose: delay || defaultDelay,
+      });
+      break;
+    case "PF":
+      toast.error("기존 비밀번호와 다른 비밀번호 입니다.", {
         position: "top-center",
         autoClose: delay || defaultDelay,
       });

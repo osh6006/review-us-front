@@ -1,4 +1,5 @@
 import { privateApi } from "../utils/axios-setting";
+import { showToastByCode } from "../utils/response";
 
 export const getMyProfile = async () => {
   return await privateApi
@@ -11,12 +12,34 @@ export const getMyProfile = async () => {
     });
 };
 
-export const putProfileImage = async (url: string) => {
+export const putProfileImage = async (file: File) => {
   return await privateApi
     .put(
       `/profile/info/image`,
+      {
+        file: file,
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    )
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      // console.log(error);
+      throw new Error(error);
+    });
+};
+
+export const patchProfileNickName = async (name: string) => {
+  return await privateApi
+    .patch(
+      `/profile/changeNickname`,
       JSON.stringify({
-        profileImage: url,
+        changeNickname: name,
       })
     )
     .then((res) => {
@@ -28,22 +51,25 @@ export const putProfileImage = async (url: string) => {
     });
 };
 
-export const patchProfile = async (data: {
-  nickname: string | null;
-  password: string | null;
+export const patchProfilePassword = async (data: {
+  currentPasswornd: string;
+  password: string;
+  passwordConfirm: string;
 }) => {
   return await privateApi
     .patch(
-      `/profile/info`,
+      `/auth/changePasswd`,
       JSON.stringify({
-        nickname: data.nickname,
-        password: data.password || null,
+        currentPasswd: data.currentPasswornd,
+        newPasswd: data.password,
+        checkPasswd: data.passwordConfirm,
       })
     )
     .then((res) => {
       return res.data;
     })
     .catch((error) => {
-      throw new Error(error);
+      // console.log(error);
+      return error.response.data;
     });
 };

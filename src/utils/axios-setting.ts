@@ -59,27 +59,32 @@ privateApi.interceptors.response.use(
       response: { status },
     } = error;
 
-    // if (config && response && status === 500) {
-    //   config._retry = true;
-    //   const refreshTokenInfo = await postRefreshToken();
+    if (config && response && status === 401) {
+      if (response.data.code === "ET") {
+        config._retry = true;
+        const refreshTokenInfo = await postRefreshToken();
 
-    //   if (refreshTokenInfo.code === "SU") {
-    //     localStorage.setItem(
-    //       "userInfo",
-    //       JSON.stringify({
-    //         userId: refreshTokenInfo.userId,
-    //         nickname: refreshTokenInfo.nickname,
-    //         accessToken: refreshTokenInfo.accessToken,
-    //         refreshToken: refreshTokenInfo.refreshToken,
-    //       })
-    //     );
-    //     axios.defaults.headers.common["Authorization"] = "Bearer " + refreshTokenInfo.accessToken;
-    //     return privateApi(config);
-    //   } else {
-    //     localStorage.clear();
-    //     window.location.reload();
-    //   }
-    // }
+        if (refreshTokenInfo.code === "SU") {
+          localStorage.setItem(
+            "userInfo",
+            JSON.stringify({
+              userId: refreshTokenInfo.userId,
+              nickname: refreshTokenInfo.nickname,
+              accessToken: refreshTokenInfo.accessToken,
+              refreshToken: refreshTokenInfo.refreshToken,
+            })
+          );
+          axios.defaults.headers.common["Authorization"] =
+            "Bearer " + refreshTokenInfo.accessToken;
+          return privateApi(config);
+        }
+      } else if (response.data.code === "PF") {
+        return Promise.reject(error);
+      } else {
+        localStorage.clear();
+        window.location.reload();
+      }
+    }
     return Promise.reject(error);
   }
 );
