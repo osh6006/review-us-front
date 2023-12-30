@@ -34,7 +34,10 @@ export const useMyStudyPostMutation = () => {
     },
 
     onError(error: any, variables, context) {
-      showToastByCode(error.response.data.code, "이미지 수정에 실패하였습니다.");
+      showToastByCode(
+        error.response.data.code,
+        "이미지 수정에 실패하였습니다."
+      );
     },
   });
 };
@@ -82,7 +85,7 @@ export const useProfileImageUploader = () => {
         const IMG_URL = await upload.promise().then((res) => res.Location);
         setImage(IMG_URL);
         const res = await putProfileImage(IMG_URL);
-        console.log(res);
+        // console.log(res);
 
         // 이미지 서버에 저장
       } catch (error) {

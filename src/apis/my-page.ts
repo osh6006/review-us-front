@@ -23,12 +23,15 @@ export const putProfileImage = async (url: string) => {
       return res.data;
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       throw new Error(error);
     });
 };
 
-export const patchProfile = async (data: { nickname: string | null; password: string | null }) => {
+export const patchProfile = async (data: {
+  nickname: string | null;
+  password: string | null;
+}) => {
   return await privateApi
     .patch(
       `/profile/info`,

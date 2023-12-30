@@ -1,8 +1,6 @@
 import { FallbackProps } from "react-error-boundary";
 
 const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
-  console.log(error);
-
   return (
     <div className="flex flex-col items-center justify-center px-3 pt-52">
       <div role="alert" className="error">

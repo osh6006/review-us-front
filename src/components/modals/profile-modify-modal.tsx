@@ -5,7 +5,10 @@ import { useForm } from "react-hook-form";
 import { PenSquare } from "lucide-react";
 import { Menu, Transition } from "@headlessui/react";
 
-import { profileModifyModal, useProfileModifyModal } from "../../hooks/use-profile-modify-modal";
+import {
+  profileModifyModal,
+  useProfileModifyModal,
+} from "../../hooks/use-profile-modify-modal";
 import Modal from "./modal";
 import Avatar from "../common/avatar";
 
@@ -30,7 +33,8 @@ const ProfileModifyModal = () => {
     },
   });
 
-  const { image, setImage, handleFileChange, inputRef, handleButtonClick } = useProfileImageUploader();
+  const { image, setImage, handleFileChange, inputRef, handleButtonClick } =
+    useProfileImageUploader();
 
   useEffect(() => {
     setImage(profileModalValue.profileData?.profileImage || null);
@@ -47,12 +51,20 @@ const ProfileModifyModal = () => {
         <ErrorFallback error={error} resetErrorBoundary={resetErrorBoundary} />
       )}
     >
-      <Modal isOpen={profileModalValue.isOpen} onClose={onClose} title="프로필 수정" desc="프로필 정보를 수정해 보세요">
+      <Modal
+        isOpen={profileModalValue.isOpen}
+        onClose={onClose}
+        title="프로필 수정"
+        desc="프로필 정보를 수정해 보세요"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-4 flex flex-col items-center justify-center gap-y-3">
             <div className="relative">
               <Avatar imgUrl={image} className="w-40" />
-              <Menu as="div" className="absolute bottom-0 inline-block text-left">
+              <Menu
+                as="div"
+                className="absolute bottom-0 inline-block text-left"
+              >
                 <Menu.Button className="inline-flex w-full justify-center rounded-md  px-4 py-2 text-sm font-medium text-white  focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
                   <PenSquare className="absolute text-neutral bottom-0 right-0 transition-colors hover:text-primary cursor-pointer " />
                 </Menu.Button>
@@ -72,7 +84,9 @@ const ProfileModifyModal = () => {
                           <button
                             type="button"
                             className={`${
-                              active ? "bg-primary transition-colors text-white" : "text-gray-900"
+                              active
+                                ? "bg-primary transition-colors text-white"
+                                : "text-gray-900"
                             } group text-center flex w-full items-center rounded-md px-2 py-2 text-sm`}
                             onClick={handleButtonClick}
                           >
@@ -86,10 +100,12 @@ const ProfileModifyModal = () => {
                           <button
                             type="button"
                             className={`${
-                              active ? "bg-primary transition-colors text-white" : "text-gray-900"
+                              active
+                                ? "bg-primary transition-colors text-white"
+                                : "text-gray-900"
                             } group text-center flex w-full items-center rounded-md px-2 py-2 text-sm`}
                             onClick={() => {
-                              console.log("menu2");
+                              // console.log("menu2");
                             }}
                           >
                             이미지 삭제
@@ -114,7 +130,9 @@ const ProfileModifyModal = () => {
                 })}
               />
               {errors.nickname?.message && (
-                <div className="text-xs text-error flex justify-end">{errors.nickname?.message}</div>
+                <div className="text-xs text-error flex justify-end">
+                  {errors.nickname?.message}
+                </div>
               )}
             </div>
             <div className="flex flex-col gap-y-1">
@@ -132,18 +150,26 @@ const ProfileModifyModal = () => {
                     message: "25글자 이상은 입력하실 수 없습니다.",
                   },
                   pattern: {
-                    value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
-                    message: "비밀번호는 영문, 숫자, 특수문자를 포함해야 합니다.",
+                    value:
+                      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
+                    message:
+                      "비밀번호는 영문, 숫자, 특수문자를 포함해야 합니다.",
                   },
                 })}
               />
               {errors.password?.message && (
-                <div className="text-xs text-error flex justify-end">{errors.password?.message}</div>
+                <div className="text-xs text-error flex justify-end">
+                  {errors.password?.message}
+                </div>
               )}
             </div>
           </div>
           <div className="w-full flex justify-end mt-9 gap-x-3">
-            <button type="button" className="btn btn-outline px-6" onClick={onClose}>
+            <button
+              type="button"
+              className="btn btn-outline px-6"
+              onClick={onClose}
+            >
               취소
             </button>
             <button type="submit" className="btn btn-primary text-white px-6">
@@ -152,7 +178,13 @@ const ProfileModifyModal = () => {
           </div>
         </form>
 
-        <input accept="image/*" type="file" ref={inputRef} className="hidden" onChange={handleFileChange} />
+        <input
+          accept="image/*"
+          type="file"
+          ref={inputRef}
+          className="hidden"
+          onChange={handleFileChange}
+        />
       </Modal>
     </ErrorBoundary>
   );
