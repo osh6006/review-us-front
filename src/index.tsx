@@ -4,6 +4,7 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ToastProvider from "./providers/toast-provider";
 
 import { RecoilRoot } from "recoil";
@@ -21,6 +22,7 @@ const queryClient = new QueryClient();
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <RecoilRoot>
         <ToastProvider />
         <ModalProvider />

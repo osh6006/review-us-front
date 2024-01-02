@@ -1,11 +1,10 @@
 import clsx from "clsx";
-import { useMyStudiesSearchQuery } from "../../hooks/use-study";
 
 import Card from "./card";
 import SkeletonCard from "../common/skeleton/skeleton-card";
-import { useEffect, useState } from "react";
-import { getMyStudiesBySearch } from "../../apis/study";
-import { MyStudySearchResponse } from "../../types/interface";
+import { Fragment } from "react";
+import Loading from "../common/loading";
+import { useMyStudiesSearchQuery } from "../../hooks/use-study";
 
 interface CardListProps {
   type: "list" | "card";
@@ -13,17 +12,8 @@ interface CardListProps {
 }
 
 const SearchCardList: React.FC<CardListProps> = ({ type, searchValue }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
-  const [data, setData] = useState<MyStudySearchResponse | null>(null);
-
-  useEffect(() => {
-    setIsLoading(true);
-    getMyStudiesBySearch(searchValue)
-      .then((res) => setData(res))
-      .catch((error) => setIsError(true))
-      .finally(() => setIsLoading(false));
-  }, [searchValue]);
+  const { data, isLoading, isError, isSuccess, isFetching, fetchNextPage } =
+    useMyStudiesSearchQuery(searchValue);
 
   if (isLoading) {
     return (
@@ -62,41 +52,60 @@ const SearchCardList: React.FC<CardListProps> = ({ type, searchValue }) => {
     );
   }
 
-  return (
-    <section>
-      {data && data?.searchList?.length <= 0 ? (
-        <>
-          <div
-            className="w-full min-h-[400px] flex flex-col px-3 items-center justify-center gap-y-4
+  if (isSuccess && data?.pages[0].noOffsetBoardlist.empty) {
+    return (
+      <section>
+        <div
+          className="w-full min-h-[400px] flex flex-col px-3 items-center justify-center gap-y-4
           sm:min-h-[500px] sm:gap-8
           "
-          >
-            <h2 className=" text-md  text-neutral sm:text-xl ">
-              검색결과가 없습니다.
-            </h2>
-          </div>
-        </>
-      ) : (
+        >
+          <h2 className=" text-md  text-neutral sm:text-xl ">
+            검색결과가 없습니다.
+          </h2>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <>
+      <section>
         <ul
           className={clsx(
             `px-4 my-4`,
             type === "card"
               ? `grid gap-2 grid-cols-1 justify-items-center
-      sm:grid-cols-2 sm:px-0 sm:my-8 sm:justify-items-start sm:gap-3
-      md:grid-cols-3
-      xl:grid-cols-4 xl:gap-4
-      `
-              : `grid gap-y-2 grid-cols-1 justify-items-center
-        lg:grid-cols-2 sm:px-0 sm:my-8 sm:gap-2 sm:justify-items-start
+        sm:grid-cols-2 sm:px-0 sm:my-8 sm:justify-items-start sm:gap-3
+        md:grid-cols-3
+        xl:grid-cols-4 xl:gap-4
         `
+              : `grid gap-y-2 grid-cols-1 justify-items-center
+          lg:grid-cols-2 sm:px-0 sm:my-8 sm:gap-2 sm:justify-items-start
+          `
           )}
         >
-          {data?.searchList.map((study) => {
-            return <Card key={study.boardNumber} data={study} type={type} />;
-          })}
+          {data &&
+            data.pages?.map((group, i) => (
+              <Fragment key={i}>
+                {group &&
+                  group?.noOffsetBoardlist.content.map((data) => (
+                    <Card key={data.boardNumber} data={data} type={type} />
+                  ))}
+              </Fragment>
+            ))}
         </ul>
-      )}
-    </section>
+        <div className="flex justify-center">
+          <button
+            disabled={isFetching}
+            className="btn btn-primary btn-wide"
+            onClick={() => fetchNextPage()}
+          >
+            {isFetching ? <Loading size="sm" type="spinner" /> : "더 보기"}
+          </button>
+        </div>
+      </section>
+    </>
   );
 };
 

@@ -32,21 +32,53 @@ export interface MyStudy {
   boardNumber: number;
   title: string;
   content: string;
-  boardFileList: any;
   writeDatetime: string;
-  tagList: string[];
   alarm: boolean;
 }
 
+export interface MyStudyDetail extends MyStudy {
+  boardFileList: any;
+  tagList: string[];
+}
+
+interface Sort {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
+}
+
+interface Pageable {
+  sort: Sort;
+  offset: number;
+  pageNumber: number;
+  pageSize: number;
+  unpaged: boolean;
+  paged: boolean;
+}
+
+interface NoOffsetBoardlist {
+  content: MyStudy[];
+  pageable: Pageable;
+  number: number;
+  size: number;
+  sort: Sort;
+  first: number;
+  last: number;
+  numberOfElements: number;
+  empty: boolean;
+}
+
 export interface MyStudyGetResponse extends CommonResponse {
-  userBoardList: MyStudy[];
+  noOffsetBoardlist: NoOffsetBoardlist;
 }
 
 export interface MyStudySearchResponse extends CommonResponse {
   searchList: MyStudy[];
 }
 
-export interface MyStudyDetailGetResponse extends CommonResponse, MyStudy {
+export interface MyStudyDetailGetResponse
+  extends CommonResponse,
+    MyStudyDetail {
   writeremail: string;
 }
 

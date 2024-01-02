@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { showToastByCode } from "../../../utils/response";
 import { patchProfilePassword } from "../../../apis/my-page";
-import axios from "axios";
 
 const PasswordEdit = () => {
   const {

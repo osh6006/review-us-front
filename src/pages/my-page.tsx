@@ -50,17 +50,24 @@ export default function MyPage() {
                 <h2 className="text-2xl font-bold">{profile?.nickname}</h2>
                 <h4 className="text-neutral">{profile?.email}</h4>
               </div>
-              <button onClick={() => onOpen(profile!)} className="btn w-full btn-primary btn-outline btn-md">
+              <button
+                onClick={() => onOpen(profile!)}
+                className="btn w-full btn-primary btn-outline btn-md"
+              >
                 프로필 수정
               </button>
             </div>
             <div className="flex-1 sm:ml-20 ">
-              <h2 className="text-2xl font-semibold mt-3 mb-3 text-center sm:text-start sm:mt-0">최근 기록</h2>
+              <h2 className="text-2xl font-semibold mt-3 mb-3 text-center sm:text-start sm:mt-0">
+                최근 기록
+              </h2>
               <MyPageStudyList />
             </div>
           </section>
           <div className="divider divider-primary"></div>
-          <h2 className="text-2xl font-semibold mt-3 mb-3 text-center sm:text-start sm:mt-0">히스토리</h2>
+          <h2 className="text-2xl font-semibold mt-3 mb-3 text-center sm:text-start sm:mt-0">
+            히스토리
+          </h2>
           <MyStudyHistory />
         </>
       }

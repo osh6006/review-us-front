@@ -1,8 +1,26 @@
 import { MyStudyFormData, MyStudyPostResponse } from "../types/interface";
 import { privateApi } from "../utils/axios-setting";
 
-export const getMyStudies = async (option?: string) => {
-  return await privateApi.get("/mystudy").then((res) => res.data);
+export const getMyStudies = async (
+  size = 8,
+  lastBoardNumber: unknown,
+  searchWord?: string
+) => {
+  let url = `/mystudy/nooffset/?size=${size}`;
+
+  // lastBoardNumber가 주어졌을 때만 추가
+  if (lastBoardNumber) {
+    url += `&lastBoardNumber=${lastBoardNumber}`;
+  }
+
+  // searchWord가 주어졌을 때만 추가
+  if (searchWord !== undefined) {
+    url += `&searchWord=${encodeURIComponent(searchWord)}`;
+  }
+
+  return await privateApi.get(url).then((res) => {
+    return res.data;
+  });
 };
 
 export const getMyStudiesBySearch = async (searchValue: string) => {

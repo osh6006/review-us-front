@@ -1,20 +1,16 @@
-// useQueryDebounce.ts
 import { useState, useEffect } from "react";
 
 const useQueryDebounce = (value: string, delay = 200) => {
-  const [debounceValue, setDebounceValue] = useState(value);
+  const [debouncedInputValue, setDebouncedInputValue] = useState("");
 
   useEffect(() => {
-    const handler: NodeJS.Timeout = setTimeout(() => {
-      setDebounceValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
+    const delayInputTimeoutId = setTimeout(() => {
+      setDebouncedInputValue(value);
+    }, 500);
+    return () => clearTimeout(delayInputTimeoutId);
   }, [value, delay]);
 
-  return debounceValue;
+  return debouncedInputValue;
 };
 
 export default useQueryDebounce;

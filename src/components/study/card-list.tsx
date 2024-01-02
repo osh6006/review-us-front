@@ -6,20 +6,19 @@ import { useMyStudiesQuery } from "../../hooks/use-study";
 
 import Card from "./card";
 import SkeletonCard from "../common/skeleton/skeleton-card";
+import { Fragment } from "react";
+import Loading from "../common/loading";
 
 interface CardListProps {
   type: "list" | "card";
+  searchValue?: string;
 }
 
-const CardList: React.FC<CardListProps> = ({ type }) => {
+const CardList: React.FC<CardListProps> = ({ type, searchValue }) => {
   const nav = useNavigate();
 
-  const {
-    data: myStuidies,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useMyStudiesQuery();
+  const { data, isLoading, isError, isSuccess, isFetching, fetchNextPage } =
+    useMyStudiesQuery();
 
   if (isLoading) {
     return (
@@ -60,7 +59,7 @@ const CardList: React.FC<CardListProps> = ({ type }) => {
 
   return (
     <section>
-      {isSuccess && myStuidies?.userBoardList.length <= 0 && (
+      {isSuccess && data?.pages.length <= 0 && (
         <div
           className="w-full min-h-[400px] flex flex-col px-3 items-center justify-center gap-y-4 
           sm:min-h-[500px] sm:gap-8
@@ -78,25 +77,41 @@ const CardList: React.FC<CardListProps> = ({ type }) => {
         </div>
       )}
       {isSuccess && (
-        <ul
-          className={clsx(
-            `px-4 my-4`,
-            type === "card"
-              ? `grid gap-2 grid-cols-1 justify-items-center
+        <>
+          <ul
+            className={clsx(
+              `px-4 my-4`,
+              type === "card"
+                ? `grid gap-2 grid-cols-1 justify-items-center
         sm:grid-cols-2 sm:px-0 sm:my-8 sm:justify-items-start sm:gap-3
         md:grid-cols-3
         xl:grid-cols-4 xl:gap-4
         `
-              : `grid gap-y-2 grid-cols-1 justify-items-center
+                : `grid gap-y-2 grid-cols-1 justify-items-center
           lg:grid-cols-2 sm:px-0 sm:my-8 sm:gap-2 sm:justify-items-start
           `
-          )}
-        >
-          {myStuidies &&
-            myStuidies.userBoardList.map((study) => {
-              return <Card key={study.boardNumber} data={study} type={type} />;
-            })}
-        </ul>
+            )}
+          >
+            {data &&
+              data.pages?.map((group, i) => (
+                <Fragment key={i}>
+                  {group &&
+                    group?.noOffsetBoardlist.content.map((data) => (
+                      <Card key={data.boardNumber} data={data} type={type} />
+                    ))}
+                </Fragment>
+              ))}
+          </ul>
+          <div className="flex justify-center">
+            <button
+              disabled={isFetching}
+              className="btn btn-primary btn-wide"
+              onClick={() => fetchNextPage()}
+            >
+              {isFetching ? <Loading size="sm" type="spinner" /> : "더 보기"}
+            </button>
+          </div>
+        </>
       )}
     </section>
   );

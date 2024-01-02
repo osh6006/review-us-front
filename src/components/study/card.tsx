@@ -28,7 +28,10 @@ const Card: React.FC<CardProps> = ({ data, type }) => {
     <>
       {type === "card" ? (
         <li
-          onClick={() => nav(`/mystudy/${data.boardNumber}`)}
+          onClick={(e) => {
+            e.preventDefault();
+            nav(`/mystudy/${data.boardNumber}`);
+          }}
           className="relative card w-full bg-base-100 shadow-xl cursor-pointer
           hover:opacity-50 transition-opacity
       "

@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import {
   getMyStudies,
   getMyStudiesBySearch,
@@ -16,20 +21,38 @@ import { showToastByCode } from "../utils/response";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
-export const useMyStudiesQuery = () => {
-  return useQuery<MyStudyGetResponse, AxiosError>({
+export const useMyStudiesQuery = (searchWord?: string) => {
+  const size = 8;
+  return useInfiniteQuery<MyStudyGetResponse, AxiosError>({
     queryKey: ["MyStudiesQuery"],
-    queryFn: () => getMyStudies(),
-    staleTime: Infinity,
-    retry: false,
+    initialPageParam: null,
+    queryFn: ({ pageParam }) => getMyStudies(size, pageParam, searchWord),
+    getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
+      const boardNumber =
+        lastPage.noOffsetBoardlist.content.at(-1)?.boardNumber;
+      if (boardNumber && !lastPage.noOffsetBoardlist.last) {
+        return boardNumber;
+      }
+      return undefined;
+    },
   });
 };
 
 export const useMyStudiesSearchQuery = (searchValue: string) => {
-  return useQuery<MyStudySearchResponse, AxiosError>({
-    queryKey: ["MyStudiesSearchQuery"],
-    queryFn: () => getMyStudiesBySearch(searchValue),
+  const size = 8;
+  return useInfiniteQuery<MyStudyGetResponse, AxiosError>({
+    queryKey: ["MyStudiesSearchQuery", searchValue],
+    initialPageParam: null,
     enabled: !!searchValue,
+    queryFn: ({ pageParam }) => getMyStudies(size, pageParam, searchValue),
+    getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
+      const boardNumber =
+        lastPage.noOffsetBoardlist.content.at(-1)?.boardNumber;
+      if (boardNumber && !lastPage.noOffsetBoardlist.last) {
+        return boardNumber;
+      }
+      return undefined;
+    },
   });
 };
 

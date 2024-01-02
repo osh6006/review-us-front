@@ -12,7 +12,7 @@ export default function MyStudy() {
   const [cardType, setCardType] = useState<"list" | "card">("card");
 
   const [searchValue, setSearchValue] = useState("");
-  const debouncedSearchInput = useQueryDebounce(searchValue, 200);
+  const debouncedSearchInput = useQueryDebounce(searchValue, 500);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
