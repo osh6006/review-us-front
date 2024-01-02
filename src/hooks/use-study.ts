@@ -6,7 +6,6 @@ import {
 } from "@tanstack/react-query";
 import {
   getMyStudies,
-  getMyStudiesBySearch,
   getMyStudyDetail,
   patchMyStudy,
   postMyStudy,
@@ -15,7 +14,6 @@ import {
   MyStudyFormData,
   MyStudyDetailGetResponse,
   MyStudyGetResponse,
-  MyStudySearchResponse,
 } from "../types/interface";
 import { showToastByCode } from "../utils/response";
 import { AxiosError } from "axios";
@@ -24,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 export const useMyStudiesQuery = (searchWord?: string) => {
   const size = 8;
   return useInfiniteQuery<MyStudyGetResponse, AxiosError>({
-    queryKey: ["MyStudiesQuery"],
+    queryKey: ["MyStudiesQuery", searchWord],
     initialPageParam: null,
     queryFn: ({ pageParam }) => getMyStudies(size, pageParam, searchWord),
     getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
@@ -35,24 +33,8 @@ export const useMyStudiesQuery = (searchWord?: string) => {
       }
       return undefined;
     },
-  });
-};
-
-export const useMyStudiesSearchQuery = (searchValue: string) => {
-  const size = 8;
-  return useInfiniteQuery<MyStudyGetResponse, AxiosError>({
-    queryKey: ["MyStudiesSearchQuery", searchValue],
-    initialPageParam: null,
-    enabled: !!searchValue,
-    queryFn: ({ pageParam }) => getMyStudies(size, pageParam, searchValue),
-    getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => {
-      const boardNumber =
-        lastPage.noOffsetBoardlist.content.at(-1)?.boardNumber;
-      if (boardNumber && !lastPage.noOffsetBoardlist.last) {
-        return boardNumber;
-      }
-      return undefined;
-    },
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 };
 

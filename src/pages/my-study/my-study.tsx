@@ -1,21 +1,16 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Grid2X2, LayoutList } from "lucide-react";
 
 import Inner from "../../components/common/inner";
 import Title from "../../components/common/title";
 import CardList from "../../components/study/card-list";
-import SearchCardList from "../../components/study/search-list";
 import useQueryDebounce from "../../hooks/use-debounce";
 
 export default function MyStudy() {
   const today = new Date();
   const [cardType, setCardType] = useState<"list" | "card">("card");
 
-  const [searchValue, setSearchValue] = useState("");
-  const debouncedSearchInput = useQueryDebounce(searchValue, 500);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
-  };
+  const { inputRef, searchWord, onInputChange } = useQueryDebounce(500);
 
   return (
     <Inner>
@@ -31,10 +26,10 @@ export default function MyStudy() {
         >
           <input
             type="text"
-            value={searchValue}
+            ref={inputRef}
             placeholder="제목 or 내용으로 검색"
             className=" input input-bordered input-primary w-full max-w-sm rounded-full"
-            onChange={handleChange}
+            onChange={onInputChange}
           />
           <div className="flex items-center gap-x-4">
             <select className="select-primary bg-transparent rounded-md px-3 py-1 ">
@@ -65,11 +60,7 @@ export default function MyStudy() {
           </div>
         </div>
       </section>
-      {debouncedSearchInput ? (
-        <SearchCardList type={cardType} searchValue={debouncedSearchInput} />
-      ) : (
-        <CardList type={cardType} />
-      )}
+      <CardList type={cardType} searchValue={searchWord} inputRef={inputRef} />
     </Inner>
   );
 }
