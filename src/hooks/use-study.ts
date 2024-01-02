@@ -33,8 +33,6 @@ export const useMyStudiesQuery = (searchWord?: string) => {
       }
       return undefined;
     },
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
   });
 };
 
