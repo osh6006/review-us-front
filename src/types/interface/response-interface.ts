@@ -87,3 +87,9 @@ export interface ProfileUserInfoResponse extends CommonResponse {
   nickname: string;
   profileImage: string | null;
 }
+
+type LatestStudy = Omit<MyStudy, "alarm" | "content"> & { tagList: string[] };
+
+export interface LatestStudyResponse extends CommonResponse {
+  latestBoardList: LatestStudy[];
+}

@@ -38,9 +38,9 @@ export default function MyPage() {
         <>
           <Title title="마이 페이지" />
           <section
-            className="flex flex-col w-full mt-8
-      sm:flex-row
-      "
+            className="mx-auto flex flex-col items-center w-full mt-8 max-w-5xl
+            sm:flex-row sm:items-center
+            "
           >
             <div className="flex flex-col items-center justify-center gap-y-2">
               <div className="relative">
@@ -57,8 +57,11 @@ export default function MyPage() {
                 프로필 수정
               </button>
             </div>
-            <div className="flex-1 sm:ml-20 ">
-              <h2 className="text-2xl font-semibold mt-3 mb-3 text-center sm:text-start sm:mt-0">
+            <div className="w-full flex-1 sm:ml-10 min-h-[350px]">
+              <h2
+                className="text-2xl font-semibold mt-3 mb-3 text-center sm:text-start
+              sm:mt-0"
+              >
                 최근 기록
               </h2>
               <MyPageStudyList />

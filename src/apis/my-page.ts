@@ -1,5 +1,4 @@
 import { privateApi } from "../utils/axios-setting";
-import { showToastByCode } from "../utils/response";
 
 export const getMyProfile = async () => {
   return await privateApi
@@ -65,6 +64,18 @@ export const patchProfilePassword = async (data: {
         checkPasswd: data.passwordConfirm,
       })
     )
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      // console.log(error);
+      return error.response.data;
+    });
+};
+
+export const getLatestStudies = async () => {
+  return await privateApi
+    .get("/profile/latest-list")
     .then((res) => {
       return res.data;
     })

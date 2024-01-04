@@ -5,15 +5,21 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { showToastByCode } from "../utils/response";
 
-import { getMyProfile, putProfileImage } from "../apis/my-page";
-import { ProfileUserInfoResponse } from "../types/interface/response-interface";
+import {
+  getLatestStudies,
+  getMyProfile,
+  putProfileImage,
+} from "../apis/my-page";
+import {
+  LatestStudyResponse,
+  ProfileUserInfoResponse,
+} from "../types/interface/response-interface";
 import { useProfileModifyModal } from "./use-profile-modify-modal";
 
 export const useMyProfileQuery = () => {
   return useQuery<ProfileUserInfoResponse, AxiosError>({
     queryKey: ["MyProfileQuery"],
     queryFn: () => getMyProfile(),
-    staleTime: 0,
     retry: false,
   });
 };
@@ -58,4 +64,20 @@ export const useProfileImageUploader = () => {
     inputRef,
     isLoading,
   };
+};
+
+export const useLatestStudy = () => {
+  return useQuery<LatestStudyResponse, AxiosError>({
+    queryKey: ["LatestStudiesQuery"],
+    queryFn: () => getLatestStudies(),
+    retry: false,
+  });
+};
+
+export const useHistory = () => {
+  return useQuery<ProfileUserInfoResponse, AxiosError>({
+    queryKey: ["HistoryQuery"],
+    queryFn: () => getMyProfile(),
+    retry: false,
+  });
 };

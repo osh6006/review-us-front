@@ -1,19 +1,37 @@
 // import { useNavigate } from "react-router-dom";
 
-// interface MyStudyCardProps {}
+import { useNavigate } from "react-router-dom";
+import { MyStudy } from "../../types/interface/response-interface";
+import { formatDate } from "../../utils/date";
 
-const MyStudyCard = () => {
-  // const nav = useNavigate();
+interface MyStudyCardProps {
+  study: Omit<MyStudy, "alarm" | "content"> & { tagList: string[] };
+}
+
+const MyStudyCard: React.FunctionComponent<MyStudyCardProps> = ({ study }) => {
+  const nav = useNavigate();
 
   return (
-    <div className="w-full p-4 border rounded-lg border-primary cursor-pointer shadow-sm">
-      <h2 className="text-xl font-semibold">나의 첫 영어 공부</h2>
+    <div
+      className="w-full border rounded-lg border-primary cursor-pointer shadow-md px-4 py-2 transition-all
+    hover:translate-x-1 hover:-translate-y-1
+    "
+      onClick={() => {
+        nav(`/mystudy/${study.boardNumber}`);
+      }}
+    >
+      <h2 className="text-xl font-semibold">{study.title}</h2>
       <div className="flex justify-between mt-4">
         <div className="flex gap-x-2">
-          <div className="badge badge-primary">#단어</div>
-          <div className="badge badge-primary">#대화</div>
+          {study.tagList.map((el) => {
+            return <span className="badge badge-primary">{el}</span>;
+          })}
         </div>
-        <time className="text-neutral">2022.01.03</time>
+      </div>
+      <div className="flex justify-end mt-1">
+        <time className="text-xs text-neutral">
+          {formatDate(study.writeDatetime)}
+        </time>
       </div>
     </div>
   );

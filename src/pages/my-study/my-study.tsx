@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { Grid2X2, LayoutList } from "lucide-react";
 
 import Inner from "../../components/common/inner";
