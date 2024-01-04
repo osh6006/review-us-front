@@ -3,14 +3,14 @@ import { deleteMyStudy } from "../apis/study";
 import { showToastByCode } from "../utils/response";
 import { useQueryClient } from "@tanstack/react-query";
 
-interface DeleteModalState {
+interface StudyDeleteModalState {
   isOpen: boolean;
   boardNumber: number | null;
   isDelete: boolean;
 }
 
-export const deleteModalState = atom<DeleteModalState>({
-  key: "DeleteModalState",
+export const studyDeleteModalState = atom<StudyDeleteModalState>({
+  key: "StudyDeleteModalState",
   default: {
     isOpen: false,
     boardNumber: null,
@@ -18,9 +18,9 @@ export const deleteModalState = atom<DeleteModalState>({
   },
 });
 
-export const useDeleteModal = () => {
-  const deleteState = useRecoilValue(deleteModalState);
-  const setDeleteState = useSetRecoilState(deleteModalState);
+export const useStudyDeleteModal = () => {
+  const deleteState = useRecoilValue(studyDeleteModalState);
+  const setDeleteState = useSetRecoilState(studyDeleteModalState);
   const queryClient = useQueryClient();
 
   const onOpen = (boardNumber: number | null) => {

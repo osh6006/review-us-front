@@ -86,14 +86,24 @@ export const getLatestStudies = async () => {
 };
 
 export const getHistories = async (startDate: string, endDate: string) => {
-  console.log(startDate, endDate);
-
   return await privateApi
     .get(`/mystudy/grass/?startDate=${startDate}&endDate=${endDate}`)
     .then((res) => {
       return res.data;
     })
     .catch((error) => {
+      return error.response.data;
+    });
+};
+
+export const deleteUser = async () => {
+  return await privateApi
+    .delete(`/auth/delete`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      console.log(error);
       return error.response.data;
     });
 };

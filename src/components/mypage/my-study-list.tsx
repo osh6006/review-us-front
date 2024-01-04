@@ -7,7 +7,7 @@ const MyPageStudyList = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center">
+      <div className="flex w-full min-h-[250px] text-neutral text-xl justify-center items-center">
         <Loading size="md" type="spinner" />
       </div>
     );
@@ -15,8 +15,16 @@ const MyPageStudyList = () => {
 
   if (isError) {
     return (
-      <div className="w-full min-h-[500px] text-neutral">
+      <div className="flex w-full min-h-[250px] text-neutral text-xl justify-center items-center">
         <h1>서버 에러가 발생하였습니다.</h1>
+      </div>
+    );
+  }
+
+  if (isSuccess && data?.latestBoardList?.length <= 0) {
+    return (
+      <div className="flex w-full min-h-[250px] text-neutral text-xl justify-center items-center">
+        <h1>아직 작성한 복습이 없습니다</h1>
       </div>
     );
   }

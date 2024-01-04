@@ -4,6 +4,7 @@ import Loading from "../components/common/loading";
 import Title from "../components/common/title";
 import MyStudyHistory from "../components/mypage/my-study-history";
 import MyPageStudyList from "../components/mypage/my-study-list";
+import UserDelete from "../components/mypage/user-delete";
 
 import { useMyProfileQuery } from "../hooks/use-profile";
 import { useProfileModifyModal } from "../hooks/use-profile-modify-modal";
@@ -42,7 +43,7 @@ export default function MyPage() {
             sm:flex-row sm:items-center
             "
           >
-            <div className="flex flex-col items-center justify-center gap-y-2">
+            <div className="flex flex-col items-center justify-center gap-y-2 ">
               <div className="relative">
                 <Avatar imgUrl={profile?.profileImage} className="w-56" />
               </div>
@@ -57,7 +58,7 @@ export default function MyPage() {
                 프로필 수정
               </button>
             </div>
-            <div className="w-full flex-1 sm:ml-10 min-h-[350px]">
+            <div className="w-full flex-1 sm:ml-10">
               <h2
                 className="text-2xl font-semibold mt-3 mb-3 text-center sm:text-start
               sm:mt-0"
@@ -67,11 +68,8 @@ export default function MyPage() {
               <MyPageStudyList />
             </div>
           </section>
-          <div className="divider divider-primary"></div>
-          <h2 className="text-2xl font-semibold mt-3 mb-3 text-center sm:text-start sm:mt-0">
-            히스토리
-          </h2>
           <MyStudyHistory />
+          <UserDelete />
         </>
       }
     </Inner>

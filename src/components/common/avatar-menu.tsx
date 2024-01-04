@@ -45,9 +45,9 @@ const AvatarMenu = () => {
         <Menu.Item>
           {({ active }) => (
             <button
-              onClick={() => {
+              onClick={async () => {
                 localStorage.clear();
-                nav("/auth");
+                window.location.reload();
               }}
               className={`${
                 active ? "bg-primary text-white" : "text-gray-900"

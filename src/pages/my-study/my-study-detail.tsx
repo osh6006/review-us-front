@@ -13,14 +13,17 @@ import { useRecoilValue } from "recoil";
 
 import { useMyStudyDetailQuery } from "../../hooks/use-study";
 // import { useFakeMyStudyDetailQuery } from "../../hooks/use-fake-study";
-import { deleteModalState, useDeleteModal } from "../../hooks/use-delete-modal";
+import {
+  studyDeleteModalState,
+  useStudyDeleteModal,
+} from "../../hooks/use-study-delete-modal";
 
 export default function MyStudyDetail() {
   const nav = useNavigate();
   const { studyId } = useParams();
 
-  const { isDelete } = useRecoilValue(deleteModalState);
-  const { onOpen } = useDeleteModal();
+  const { isDelete } = useRecoilValue(studyDeleteModalState);
+  const { onOpen } = useStudyDeleteModal();
 
   if (isDelete) {
     nav("/mystudy", { replace: false });
