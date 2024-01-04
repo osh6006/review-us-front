@@ -8,3 +8,7 @@ export const formatDate = (date: string) => {
   });
   return formattedDate;
 };
+
+export const formatHistoryDate = (date: number) => {
+  return { startDate: `${date}-01-01`, endDate: `${date}-12-31` };
+};

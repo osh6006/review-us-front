@@ -23,8 +23,12 @@ const MyStudyCard: React.FunctionComponent<MyStudyCardProps> = ({ study }) => {
       <h2 className="text-xl font-semibold">{study.title}</h2>
       <div className="flex justify-between mt-4">
         <div className="flex gap-x-2">
-          {study.tagList.map((el) => {
-            return <span className="badge badge-primary">{el}</span>;
+          {study.tagList.map((el, i) => {
+            return (
+              <span key={i} className="badge badge-primary">
+                {el}
+              </span>
+            );
           })}
         </div>
       </div>

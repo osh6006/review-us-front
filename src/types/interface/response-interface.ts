@@ -93,3 +93,11 @@ type LatestStudy = Omit<MyStudy, "alarm" | "content"> & { tagList: string[] };
 export interface LatestStudyResponse extends CommonResponse {
   latestBoardList: LatestStudy[];
 }
+
+export interface GrassList {
+  postCount: number;
+  grassDate: string;
+}
+export interface HistoryResponse extends CommonResponse {
+  grassList: GrassList[];
+}
