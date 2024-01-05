@@ -10,7 +10,9 @@ export type ResponseCode =
   | "AF"
   | "NP"
   | "NE"
-  | "PF";
+  | "PF"
+  | "WT"
+  | "NPF";
 
 interface CommonResponse {
   code: ResponseCode;
@@ -76,9 +78,7 @@ export interface MyStudySearchResponse extends CommonResponse {
   searchList: MyStudy[];
 }
 
-export interface MyStudyDetailGetResponse
-  extends CommonResponse,
-    MyStudyDetail {
+export interface MyStudyDetailGetResponse extends CommonResponse, MyStudyDetail {
   writeremail: string;
 }
 

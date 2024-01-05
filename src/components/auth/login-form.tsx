@@ -115,35 +115,25 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
           disabled={isLoading}
         />
       </div>
-      <button
-        disabled={isLoading}
-        type="submit"
-        className="mt-4 btn btn-primary w-full text-white"
-      >
+      <button disabled={isLoading} type="submit" className="mt-4 btn btn-primary w-full text-white">
         로그인
       </button>
       <div className="mt-4 flex items-center gap-x-3">
         <p className="text-xs text-neutral">아직 계정이 없으신가요?</p>
-        <span
-          className="link-primary text-xs cursor-pointer"
-          onClick={() => setAuth("register")}
-        >
+        <span className="link-primary text-xs cursor-pointer" onClick={() => setAuth("register")}>
           회원가입
+        </span>
+      </div>
+      <div className="mt-2 flex items-center gap-x-3">
+        <p className="text-xs text-neutral">비밀번호를 잃어버리셨나요?</p>
+        <span className="link-primary text-xs cursor-pointer" onClick={() => setAuth("find")}>
+          비밀번호 찾기
         </span>
       </div>
       <div className="divider text-neutral">OR</div>
       <div className="w-full">
-        <button
-          disabled={isLoading}
-          onClick={() => handleGoogleSocialLogin()}
-          type="button"
-          className="btn w-full"
-        >
-          <img
-            src="/images/google.png"
-            alt="goole-icon"
-            className="max-w-[20px]"
-          />
+        <button disabled={isLoading} onClick={() => handleGoogleSocialLogin()} type="button" className="btn w-full">
+          <img src="/images/google.png" alt="goole-icon" className="max-w-[20px]" />
           Google로 로그인
         </button>
       </div>
