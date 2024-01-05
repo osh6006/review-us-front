@@ -7,6 +7,8 @@ import { signIn } from "../../apis/auth";
 import "react-toastify/dist/ReactToastify.css";
 import { showToastByCode } from "../../utils/response";
 import { LoginUser } from "../../types/interface";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 interface LoginFormProps {
   setAuth: (type: AuthType) => void;
@@ -66,14 +68,20 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSocialLogin = () => {
-    // 구글 로그인 화면으로 이동시키기
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?
-		client_id=${process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
-		&redirect_uri=${process.env.REACT_APP_GOOGLE_AUTH_REDIRECT_URI}
-		&response_type=code
-		&scope=email profile`;
-  };
+  const handleGoogleSocialLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      console.log(tokenResponse);
+      // fetching userinfo can be done on the client or the server
+      const userInfo = await axios
+        .get("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+        })
+        .then((res) => res.data);
+
+      console.log(userInfo);
+    },
+    // flow: 'implicit', // implicit is the default
+  });
 
   return (
     <form className="mt-8 w-full" onSubmit={handleSubmit}>
@@ -126,7 +134,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
       <div className="divider text-neutral">OR</div>
       <div className="w-full">
         <button
-          onClick={handleSocialLogin}
+          disabled={isLoading}
+          onClick={() => handleGoogleSocialLogin()}
           type="button"
           className="btn w-full"
         >

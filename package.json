@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080/",
+  "proxy": "http://localhost:3000/",
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@react-oauth/google": "^0.12.1",
@@ -24,6 +24,7 @@
     "clsx": "^2.0.0",
     "date-fns": "^3.0.6",
     "dompurify": "^3.0.6",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.292.0",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",

@@ -11,6 +11,7 @@ import { RecoilRoot } from "recoil";
 
 import Routes from "./routes/routes";
 import ModalProvider from "./providers/modal-provider";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -18,15 +19,18 @@ const root = ReactDOM.createRoot(
 
 // Create a client
 const queryClient = new QueryClient();
+const clientId = process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID || "";
 
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <RecoilRoot>
-        <ToastProvider />
-        <ModalProvider />
-        <Routes />
+        <GoogleOAuthProvider clientId={clientId}>
+          <ToastProvider />
+          <ModalProvider />
+          <Routes />
+        </GoogleOAuthProvider>
       </RecoilRoot>
     </QueryClientProvider>
   </React.StrictMode>
