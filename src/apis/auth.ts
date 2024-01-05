@@ -23,3 +23,8 @@ export async function signUp(data: RegisterUser) {
       return resData;
     });
 }
+
+const REDIRECT_URL =
+  process.env.NODE_ENV === "production"
+    ? "http://localhost:3000"
+    : process.env.REACT_APP_GOOGLE_AUTH_REDIRECT_URI;

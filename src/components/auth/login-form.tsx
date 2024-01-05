@@ -66,6 +66,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleSocialLogin = () => {
+    // 구글 로그인 화면으로 이동시키기
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?
+		client_id=${process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
+		&redirect_uri=${process.env.REACT_APP_GOOGLE_AUTH_REDIRECT_URI}
+		&response_type=code
+		&scope=email profile`;
+  };
+
   return (
     <form className="mt-8 w-full" onSubmit={handleSubmit}>
       <div className="form-control w-full">
@@ -115,15 +124,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
         </span>
       </div>
       <div className="divider text-neutral">OR</div>
-      <div className="flex items-center justify-center gap-x-4">
-        <button type="button" className="btn-square ">
-          <img src="/images/Naver.png" alt="btn" />
-        </button>
-        <button type="button" className="btn-square">
-          <img src="/images/Kakao.png" alt="btn" />
-        </button>
-        <button type="button" className="btn-square ">
-          <img src="/images/Instagram.png" alt="btn" />
+      <div className="w-full">
+        <button
+          onClick={handleSocialLogin}
+          type="button"
+          className="btn w-full"
+        >
+          <img
+            src="/images/google.png"
+            alt="goole-icon"
+            className="max-w-[20px]"
+          />
+          Google로 로그인
         </button>
       </div>
     </form>
