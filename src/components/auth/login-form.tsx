@@ -70,7 +70,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
 
   const handleGoogleSocialLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      console.log(tokenResponse);
       // fetching userinfo can be done on the client or the server
       const userInfo = await axios
         .get("https://www.googleapis.com/oauth2/v3/userinfo", {
@@ -80,7 +79,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
 
       console.log(userInfo);
     },
-    // flow: 'implicit', // implicit is the default
+    flow: "implicit", // implicit is the default
   });
 
   return (
