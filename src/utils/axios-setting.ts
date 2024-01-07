@@ -1,5 +1,4 @@
 import axios from "axios";
-import { error } from "console";
 
 const BASE_URL =
   process.env.NODE_ENV === "development"
@@ -74,8 +73,7 @@ privateApi.interceptors.response.use(
               refreshToken: refreshTokenInfo.refreshToken,
             })
           );
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer " + refreshTokenInfo.accessToken;
+          axios.defaults.headers.common["Authorization"] = "Bearer " + refreshTokenInfo.accessToken;
           return privateApi(config);
         }
       } else if (response.data.code === "PF") {

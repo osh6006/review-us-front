@@ -13,9 +13,7 @@ import Routes from "./routes/routes";
 import ModalProvider from "./providers/modal-provider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 // Create a client
 const queryClient = new QueryClient();

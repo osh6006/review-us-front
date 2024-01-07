@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { AuthType } from "../../pages/auth";
-import { signIn } from "../../apis/auth";
+import { getSocialLoginCode, signIn } from "../../apis/auth";
 
 import "react-toastify/dist/ReactToastify.css";
 import { showToastByCode } from "../../utils/response";
@@ -72,6 +72,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
     onSuccess: async (tokenResponse) => {
       console.log(tokenResponse);
       // fetching userinfo can be done on the client or the server
+
+      await getSocialLoginCode(tokenResponse.access_token);
+
       const userInfo = await axios
         .get("https://www.googleapis.com/oauth2/v3/userinfo", {
           headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
@@ -80,7 +83,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
 
       console.log(userInfo);
     },
-    // flow: 'implicit', // implicit is the default
+    flow: "implicit", // implicit is the default
+    // hosted_domain: process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.REACT_APP_SERVER_URL,
   });
 
   return (

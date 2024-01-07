@@ -58,3 +58,12 @@ export async function changePassword(data: { email: string; newPasswd: string; c
       return error.response?.data;
     });
 }
+
+export async function getSocialLoginCode(code: string) {
+  return await publicApi
+    .get(`https://port-0-reviewus-backend-hkty2alqam2l9c.sel4.cloudtype.app/login/oauth2/code/google?code=${code}`)
+    .then((res) => res.data)
+    .catch((error: AxiosError) => {
+      return error.response?.data;
+    });
+}
