@@ -79,7 +79,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
 
       console.log(userInfo);
     },
-    flow: "implicit", // implicit is the default
+    // flow: "implicit", // implicit is the default
   });
 
   return (
