@@ -2,13 +2,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { AuthType } from "../../pages/auth";
-import { signIn } from "../../apis/auth";
+import { getSocialLoginCode, signIn } from "../../apis/auth";
 
 import "react-toastify/dist/ReactToastify.css";
 import { showToastByCode } from "../../utils/response";
 import { LoginUser } from "../../types/interface";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import GoogleButton from "./google-button";
+
+import { jwtDecode } from "jwt-decode";
 
 interface LoginFormProps {
   setAuth: (type: AuthType) => void;
@@ -71,16 +74,30 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
   const handleGoogleSocialLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       // fetching userinfo can be done on the client or the server
-      const userInfo = await axios
-        .get("https://www.googleapis.com/oauth2/v3/userinfo", {
-          headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
-        })
-        .then((res) => res.data);
+      console.log(tokenResponse);
 
-      console.log(userInfo);
+      const test = await getSocialLoginCode(tokenResponse.code);
+      console.log(test);
     },
+    flow: "auth-code",
     // flow: "implicit", // implicit is the default
   });
+
+  const handleLogin = () => {
+    // 구글 로그인 화면으로 이동시키기
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?
+		client_id=${process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
+		&redirect_uri=${
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/auth"
+        : process.env.REACT_APP_GOOGLE_AUTH_REDIRECT_URI
+    }
+		&response_type=code
+		&scope=email profile
+    &access_type=offline
+    &prompt=consent
+    `;
+  };
 
   return (
     <form className="mt-8 w-full" onSubmit={handleSubmit}>
@@ -130,11 +147,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
           회원가입
         </span>
       </div>
-      <div className="divider text-neutral">OR</div>
+      <div className="divider text-neutral text-xs">OR</div>
       <div className="w-full">
         <button
           disabled={isLoading}
-          onClick={() => handleGoogleSocialLogin()}
+          onClick={handleGoogleSocialLogin}
           type="button"
           className="btn w-full"
         >
@@ -145,6 +162,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
           />
           Google로 로그인
         </button>
+        {/* <GoogleButton /> */}
       </div>
     </form>
   );
