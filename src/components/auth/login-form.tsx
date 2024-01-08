@@ -124,6 +124,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
           name="password"
           type="password"
           placeholder="**********"
+          autoComplete="on"
           className={"input input-primary input-bordered w-full"}
           value={formData.password}
           required

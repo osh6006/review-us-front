@@ -74,7 +74,7 @@ export async function changePassword(data: {
 
 export async function getSocialLoginCode(code: string) {
   return await publicApi
-    .get(`/auth/oauth2/code/google?code=${code}`)
+    .post(`/auth/oauth2/code/google?code=${code}`)
     .then((res) => res.data)
     .catch((error: AxiosError) => {
       return error.response?.data;
