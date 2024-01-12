@@ -151,7 +151,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
           className="link-primary text-xs cursor-pointer"
           onClick={() => setAuth("find")}
         >
-          회원가입
+          비밀번호 찾기
         </span>
       </div>
       <div className="divider text-neutral text-xs">OR</div>
