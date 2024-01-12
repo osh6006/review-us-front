@@ -8,10 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { showToastByCode } from "../../utils/response";
 import { LoginUser } from "../../types/interface";
 import { useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
-import GoogleButton from "./google-button";
-
-import { jwtDecode } from "jwt-decode";
 
 interface LoginFormProps {
   setAuth: (type: AuthType) => void;
@@ -76,28 +72,29 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
       // fetching userinfo can be done on the client or the server
       console.log(tokenResponse);
 
-      const test = await getSocialLoginCode(tokenResponse.code);
-      console.log(test);
+      if (tokenResponse.code) {
+        const test = await getSocialLoginCode(tokenResponse.code);
+        console.log(test);
+      }
     },
+
     flow: "auth-code",
     // flow: "implicit", // implicit is the default
   });
 
-  const handleLogin = () => {
-    // 구글 로그인 화면으로 이동시키기
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?
-		client_id=${process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
-		&redirect_uri=${
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:3000/auth"
-        : process.env.REACT_APP_GOOGLE_AUTH_REDIRECT_URI
-    }
-		&response_type=code
-		&scope=email profile
-    &access_type=offline
-    &prompt=consent
-    `;
-  };
+  // const handleLogin = () => {
+  //   // 구글 로그인 화면으로 이동시키기
+  //   window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?
+  // 	client_id=${process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
+  // 	&redirect_uri=${
+  //     process.env.NODE_ENV === "development"
+  //       ? "http://localhost:3000/auth"
+  //       : process.env.REACT_APP_GOOGLE_AUTH_REDIRECT_URI
+  //   }
+  // 	&scope=openid
+  // 	&response_type=code
+  //   `;
+  // };
 
   return (
     <form className="mt-8 w-full" onSubmit={handleSubmit}>
@@ -144,6 +141,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
         <span
           className="link-primary text-xs cursor-pointer"
           onClick={() => setAuth("register")}
+        >
+          회원가입
+        </span>
+      </div>
+      <div className="mt-4 flex items-center gap-x-3">
+        <p className="text-xs text-neutral">비밀번호를 잃어버리셨나요?</p>
+        <span
+          className="link-primary text-xs cursor-pointer"
+          onClick={() => setAuth("find")}
         >
           회원가입
         </span>
