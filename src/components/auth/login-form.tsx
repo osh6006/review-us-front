@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { showToastByCode } from "../../utils/response";
 import { LoginUser } from "../../types/interface";
 import { useGoogleLogin } from "@react-oauth/google";
+import { publicApi } from "../../utils/axios-setting";
 
 interface LoginFormProps {
   setAuth: (type: AuthType) => void;
@@ -82,18 +83,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
     // flow: "implicit", // implicit is the default
   });
 
-  // const handleLogin = () => {
+  // const handleGoogleSocialLogin = async () => {
   //   // 구글 로그인 화면으로 이동시키기
-  //   window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?
-  // 	client_id=${process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
-  // 	&redirect_uri=${
-  //     process.env.NODE_ENV === "development"
-  //       ? "http://localhost:3000/auth"
-  //       : process.env.REACT_APP_GOOGLE_AUTH_REDIRECT_URI
-  //   }
-  // 	&scope=openid
-  // 	&response_type=code
-  //   `;
+  //   const response = await publicApi.get("/auth/google");
+  //   window.location.href = response.data.redirectUrl;
   // };
 
   return (

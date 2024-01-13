@@ -8,28 +8,9 @@ const AvatarMenu = () => {
   return (
     <Menu as="div" className="relative">
       <Menu.Button>
-        <Avatar
-          isIndicator
-          indicatorNum={99}
-          className="max-w-[40px] cursor-pointer border-2 border-transparent hover:border-white hover:border-2 duration-100"
-        />
+        <Avatar className="max-w-[40px] cursor-pointer border-2 border-transparent hover:border-white hover:border-2 duration-100" />
       </Menu.Button>
       <Menu.Items className="absolute p-2 right-0 mt-2 w-28 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
-        <Menu.Item>
-          {({ active }) => (
-            <button
-              onClick={() => nav("/")}
-              className={`${
-                active ? "bg-primary text-white" : "text-gray-900"
-              } group flex w-full items-center justify-between rounded-md px-2 py-2 text-sm transition-colors`}
-            >
-              알림
-              <span className="badge badge-success group-hover:text-white">
-                +99
-              </span>
-            </button>
-          )}
-        </Menu.Item>
         <Menu.Item>
           {({ active }) => (
             <button

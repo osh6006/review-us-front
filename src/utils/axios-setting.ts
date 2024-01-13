@@ -2,8 +2,8 @@ import axios from "axios";
 
 const BASE_URL =
   process.env.NODE_ENV === "development"
-    ? "https://port-0-reviewus-backend-hkty2alqam2l9c.sel4.cloudtype.app"
-    : process.env.REACT_APP_SERVER_URL;
+    ? process.env.REACT_APP_SERVER_URL
+    : "https://port-0-reviewus-backend-hkty2alqam2l9c.sel4.cloudtype.app";
 
 //토큰이 불필요한 경우
 export const publicApi = axios.create({
@@ -73,7 +73,8 @@ privateApi.interceptors.response.use(
               refreshToken: refreshTokenInfo.refreshToken,
             })
           );
-          axios.defaults.headers.common["Authorization"] = "Bearer " + refreshTokenInfo.accessToken;
+          axios.defaults.headers.common["Authorization"] =
+            "Bearer " + refreshTokenInfo.accessToken;
           return privateApi(config);
         }
       } else if (response.data.code === "PF") {

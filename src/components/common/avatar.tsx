@@ -1,22 +1,13 @@
 import clsx from "clsx";
-import { Plus } from "lucide-react";
 
 interface AvatarProps {
   className?: string;
-  indicatorNum?: number;
-  isIndicator?: boolean;
   imgUrl?: string | null;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ isIndicator, indicatorNum, className, imgUrl }) => {
+const Avatar: React.FC<AvatarProps> = ({ className, imgUrl }) => {
   return (
-    <div className="avatar indicator placeholder">
-      {isIndicator && (
-        <span className="indicator-item badge badge-success text-white text-xs">
-          <Plus size={10} />
-          {indicatorNum || 0}
-        </span>
-      )}
+    <div className="avatar placeholder relative">
       {imgUrl ? (
         <div className={clsx("rounded-full", className)}>
           <img alt="avatar" src={imgUrl} />

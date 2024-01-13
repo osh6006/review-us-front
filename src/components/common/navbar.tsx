@@ -10,6 +10,7 @@ import "./animation.css";
 
 import Layout from "./layout";
 import AvatarMenu from "./avatar-menu";
+import Alram from "../alram";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
@@ -128,6 +129,7 @@ const Navbar = () => {
                 새 복습
                 <Plus size={14} />
               </button>
+              <Alram userInfo={userInfo} />
               <AvatarMenu />
             </div>
           ) : (

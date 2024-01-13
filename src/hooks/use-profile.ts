@@ -13,7 +13,6 @@ import {
 } from "../apis/my-page";
 
 import {
-  GrassList,
   HistoryResponse,
   LatestStudyResponse,
   ProfileUserInfoResponse,
