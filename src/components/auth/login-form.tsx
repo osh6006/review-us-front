@@ -78,7 +78,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
         console.log(test);
       }
     },
-
+    redirect_uri: `${process.env.REACT_APP_SERVER_URL}/auth/oauth2/code/google`,
     flow: "auth-code",
     // flow: "implicit", // implicit is the default
   });

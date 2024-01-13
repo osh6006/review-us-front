@@ -29,7 +29,7 @@ const Routes = () => {
   //           method: "GET",
   //           headers: {
   //             Authorization: `Bearer ${accessToken}`,
-  //             Connection: "keep-alive",
+  //             // Connection: "keep-alive",
   //           },
   //           async onopen(response) {
   //             if (response.ok && response.status === 200) {
@@ -43,7 +43,7 @@ const Routes = () => {
   //             }
   //           },
   //           onmessage(event) {
-  //             console.log(event.data);
+  //             console.log("message", event.data);
   //             const parsedData = JSON.parse(event.data);
   //             console.log(parsedData);
   //           },
@@ -58,7 +58,7 @@ const Routes = () => {
   //     };
   //     fetchData();
   //   }
-  // }, []);
+  // }, [userInfo]);
 
   // useEffect(() => {
   //   let eventSource: EventSource;
