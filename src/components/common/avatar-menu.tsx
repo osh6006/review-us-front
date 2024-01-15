@@ -1,6 +1,7 @@
 import { Menu } from "@headlessui/react";
 import Avatar from "./avatar";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../../apis/auth";
 
 const AvatarMenu = () => {
   const nav = useNavigate();
@@ -27,6 +28,7 @@ const AvatarMenu = () => {
           {({ active }) => (
             <button
               onClick={async () => {
+                await logout();
                 localStorage.clear();
                 window.location.reload();
               }}

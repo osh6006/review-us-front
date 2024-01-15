@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { showToastByCode } from "../../utils/response";
 import { LoginUser } from "../../types/interface";
 import { useGoogleLogin } from "@react-oauth/google";
-import { publicApi } from "../../utils/axios-setting";
 
 interface LoginFormProps {
   setAuth: (type: AuthType) => void;
@@ -74,14 +73,22 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
       console.log(tokenResponse);
 
       if (tokenResponse.code) {
-        const test = await getSocialLoginCode(tokenResponse.code);
-        console.log(test);
+        const res = await getSocialLoginCode(tokenResponse.code);
+        localStorage.setItem(
+          "userInfo",
+          JSON.stringify({
+            userId: res.userId,
+            nickname: res.nickname,
+            accessToken: res.accessToken,
+            refreshToken: res.refreshToken,
+          })
+        );
+        navigate("/");
       }
     },
 
     redirect_uri: `${process.env.REACT_APP_SERVER_URL}/auth/oauth2/code/google`,
     flow: "auth-code",
-
     // flow: "implicit", // implicit is the default
   });
 
@@ -164,6 +171,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setAuth }) => {
           />
           Google로 로그인
         </button>
+
         {/* <GoogleButton /> */}
       </div>
     </form>

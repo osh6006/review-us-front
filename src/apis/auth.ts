@@ -5,7 +5,7 @@ import {
   RegisterResponse,
   RegisterUser,
 } from "../types/interface";
-import { publicApi } from "../utils/axios-setting";
+import { privateApi, publicApi } from "../utils/axios-setting";
 
 export async function signIn(data: LoginUser) {
   return await publicApi
@@ -22,6 +22,19 @@ export async function signUp(data: RegisterUser) {
     .then((res) => {
       const resData: RegisterResponse = res.data;
       return resData;
+    });
+}
+
+export async function logout() {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo")!);
+  return await privateApi
+    .post(`/auth/logout`, JSON.stringify(userInfo.refreshToken))
+    .then((res) => {
+      const resData: RegisterResponse = res.data;
+      return resData;
+    })
+    .catch((error: AxiosError) => {
+      return error.response?.data;
     });
 }
 

@@ -41,6 +41,11 @@ export const useUserDeleteModal = () => {
       localStorage.clear();
       window.location.reload();
       showToastByCode(res.code, "탈퇴에 성공하였습니다.");
+    } else if (res.code === "ET") {
+      onSuccess();
+      localStorage.clear();
+      window.location.reload();
+      showToastByCode(res.code, "탈퇴에 성공하였습니다.");
     } else {
       onFail();
       showToastByCode(res.code);
